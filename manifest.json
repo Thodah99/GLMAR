@@ -1,0 +1,12 @@
+{
+  "name": "GLAMR",
+  "short_name": "GLAMR",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#FDF4F5",
+  "theme_color": "#E63965",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
