@@ -1,0 +1,2902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLAMR — Beauty. When you need it.</title>
+<meta name="description" content="GLAMR is a last-minute beauty marketplace for Houston, Katy, and surrounding areas. Find real, available openings with local hair, nail, lash, braid, and makeup pros near you — today or this week.">
+<meta name="keywords" content="last minute beauty Houston, hair appointments Katy, nail appointments near me, braids Houston, makeup artist Houston, same day beauty appointment, GLAMR">
+<link rel="canonical" href="https://glamr.space/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="GLAMR — Beauty. When you need it.">
+<meta property="og:description" content="Find real, available last-minute beauty openings near you in Houston, Katy, and surrounding areas.">
+<meta property="og:url" content="https://glamr.space/">
+<meta property="og:site_name" content="GLAMR">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GLAMR — Beauty. When you need it.">
+<meta name="twitter:description" content="Find real, available last-minute beauty openings near you in Houston, Katy, and surrounding areas.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  --bg: #FDF4F5; --bg-alt: #FBE9EE; --ink: #2B1B2E; --muted: #8B7684;
+  --accent: #E63965; --accent-dark: #C41F4B; --gold: #F2A65A; --surface: #FFFFFF; --line: #F0D9DF;
+  background: var(--bg); color: var(--ink); font-family: 'Work Sans', sans-serif;
+  min-height: 100vh;
+}
+/* Vendor dashboard "lol lol" theme controls — dark mode + accent color are a
+   per-device preference for the person running the dashboard, never applied
+   to the customer-facing side of the app. See applyDashTheme(). */
+body.g-dash-dark {
+  --bg: #121212; --bg-alt: #1A1A1D; --ink: #EDEDED; --muted: #9A9A9E; --surface: #1E1E21; --line: #2E2E32;
+}
+.g-theme-row { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.g-swatch { width:26px; height:26px; border-radius:50%; border:2px solid var(--surface); box-shadow:0 0 0 1px var(--line); cursor:pointer; padding:0; }
+.g-swatch.active { box-shadow:0 0 0 2px var(--ink); }
+
+.g-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:8px; }
+.g-logo { background:none; border:none; font-family:'Fraunces', serif; font-weight:700; font-size:19px; letter-spacing:0.02em; color:var(--ink); cursor:pointer; display:flex; align-items:center; gap:6px; padding:0; }
+.g-logo-mark { color: var(--accent); }
+.g-header-cta { font-size: 13px; padding: 8px 14px; }
+
+.g-page { max-width: 560px; margin: 0 auto; padding: 20px; padding-bottom: 60px; }
+.g-narrow { max-width: 420px; }
+.g-center { text-align:center; }
+.g-center-text { display:block; text-align:center; margin: 10px auto 0; }
+
+.g-hero { padding: 20px 4px 4px; }
+@keyframes gFadeUp { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform: translateY(0); } }
+.g-fade-in { opacity:0; animation: gFadeUp .6s cubic-bezier(.16,1,.3,1) forwards; }
+.g-hero .g-kicker { animation-delay: .02s; }
+.g-hero .g-h1 { animation-delay: .1s; }
+.g-hero .g-sub { animation-delay: .2s; }
+.g-hero .g-live-stat { animation-delay: .3s; }
+.g-accent-text { background: linear-gradient(100deg, var(--accent) 15%, var(--gold) 85%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.g-live-stat { display:inline-flex; align-items:center; gap:8px; margin-top:14px; padding:8px 14px; border-radius:999px; background: var(--surface); border:1px solid var(--line); font-size:13px; font-weight:600; box-shadow: 0 6px 18px rgba(43,27,46,0.06); }
+.g-live-dot { width:8px; height:8px; border-radius:50%; background:#2FBF71; box-shadow:0 0 0 0 rgba(47,191,113,0.5); animation: gPulse 1.8s ease-out infinite; flex-shrink:0; }
+@keyframes gPulse { 0% { box-shadow: 0 0 0 0 rgba(47,191,113,0.5); } 70% { box-shadow: 0 0 0 8px rgba(47,191,113,0); } 100% { box-shadow: 0 0 0 0 rgba(47,191,113,0); } }
+.g-kicker { font-size:12px; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent); font-weight:700; margin: 0 0 8px; }
+.g-h1 { font-family:'Fraunces', serif; font-weight:700; font-size: 38px; line-height:1.06; margin:0 0 10px; }
+.g-h3 { font-family:'Fraunces', serif; font-weight:600; font-size:22px; margin: 4px 0 4px; }
+.g-h4 { font-family:'Fraunces', serif; font-weight:600; font-size:17px; margin: 0 0 10px; }
+.g-sub { color: var(--muted); font-size:15px; margin:0; max-width: 360px; }
+
+.g-search-card { background: var(--surface); border-radius: 18px; padding: 18px; margin-top:18px; box-shadow: 0 10px 30px rgba(43,27,46,0.08); border:1px solid var(--line); }
+.g-field { margin-bottom: 16px; }
+.g-field label { display:block; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:8px; font-weight:600; }
+.g-two-col { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+.g-two-col > div { min-width: 0; } /* CSS Grid items default to min-width:auto, which lets a native date/time input's intrinsic size overflow its column instead of shrinking to fit — this fixes the two boxes rendering unevenly/overflowing on mobile */
+.g-chips { display:flex; flex-wrap:wrap; gap:8px; }
+.g-chip { display:inline-flex; align-items:center; gap:6px; white-space:nowrap; border:1px solid var(--line); background: var(--bg); color: var(--ink); padding:8px 13px; border-radius:999px; font-size:13.5px; cursor:pointer; transition: all .15s ease; font-family:'Work Sans',sans-serif; }
+.g-chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.g-input { width:100%; min-width:0; box-sizing:border-box; padding:11px 13px; border-radius:10px; border:1px solid var(--line); background: var(--bg); font-size:14.5px; font-family:'Work Sans',sans-serif; color:var(--ink); margin-bottom:2px; }
+.g-input:focus, .g-select:focus { outline:2px solid var(--accent); outline-offset:1px; }
+.g-label { display:block; font-size:12px; color:var(--muted); font-weight:600; margin: 12px 0 6px; }
+
+.g-btn-accent { background: var(--accent); color:#fff; border:none; padding:13px 20px; border-radius:12px; font-weight:600; font-size:14.5px; cursor:pointer; font-family:'Work Sans',sans-serif; transition: background .15s ease, transform .1s ease; }
+.g-btn-accent:hover { background: var(--accent-dark); }
+.g-btn-accent:active { transform: scale(0.97); }
+.g-btn-accent:disabled { opacity:0.45; cursor:not-allowed; }
+.g-btn-block { width:100%; margin-top: 6px; display:block; }
+.g-btn-small { padding: 9px 14px; font-size:13px; border-radius:10px; }
+.g-btn-ghost { background:transparent; border:1.5px solid var(--ink); color:var(--ink); padding:10px 16px; border-radius:12px; font-weight:600; cursor:pointer; font-family:'Work Sans',sans-serif; transition: background .15s ease, transform .1s ease; }
+.g-btn-ghost:hover { background: var(--bg-alt); }
+.g-btn-ghost:active { transform: scale(0.97); }
+
+.g-glamr-me { margin-top: 16px; border:1px dashed var(--accent); border-radius:16px; padding:16px; display:flex; align-items:center; justify-content:space-between; gap:12px; background: var(--bg-alt); }
+.g-glamr-me p { margin: 4px 0 0; color: var(--muted); font-size:13px; }
+
+.g-asap { margin-top: 30px; }
+.g-eyebrow { font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); font-weight:700; margin: 0 0 10px; }
+.g-service-area { font-size:13px; color:var(--muted); margin: 6px 0 0; font-weight:500; }
+.g-asap-grid { display:grid; grid-template-columns: 1fr; gap:10px; }
+.g-carousel { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 2px 10px; margin:0 -4px; -webkit-overflow-scrolling:touch; }
+.g-carousel::-webkit-scrollbar { height:6px; }
+.g-carousel::-webkit-scrollbar-thumb { background: var(--line); border-radius:999px; }
+.g-feature-card { scroll-snap-align:start; flex:0 0 auto; width:200px; background: var(--surface); border:1px solid var(--line); border-radius:16px; padding:14px; box-shadow: 0 8px 20px rgba(43,27,46,0.07); display:flex; flex-direction:column; gap:8px; transition: transform .15s ease, box-shadow .15s ease; }
+.g-feature-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(43,27,46,0.11); }
+.g-feature-chips { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:10px; -webkit-overflow-scrolling:touch; }
+.g-feature-chips::-webkit-scrollbar { display:none; }
+.g-asap-card { background: var(--bg-alt); border-radius:14px; padding:14px 16px; }
+.g-asap-tag { font-family:'Fraunces', serif; font-weight:600; font-size:15px; margin-bottom:4px; }
+.g-asap-card p { margin:0; color: var(--muted); font-size:13.5px; }
+
+.g-cat-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; }
+.g-cat-tile { background: var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 6px; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; font-family:'Work Sans',sans-serif; font-size:11.5px; font-weight:600; color:var(--ink); text-align:center; line-height:1.2; transition: border-color .15s ease, transform .1s ease; }
+.g-cat-tile:hover { border-color: var(--accent); }
+.g-cat-tile:active { transform: scale(0.96); }
+.g-deal-dot { position:absolute; top:6px; right:6px; font-size:11px; line-height:1; }
+.g-cat-emoji { font-size:20px; }
+
+.g-pro-cta { margin-top: 24px; padding: 18px; border:1px solid var(--line); border-radius:16px; display:flex; flex-direction:column; gap:12px; align-items:flex-start; background: var(--surface); }
+.g-pro-cta p { margin: 4px 0 0; color: var(--muted); font-size:13.5px; }
+
+.g-results-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom: 16px; flex-wrap:wrap; }
+.g-results-title { font-family:'Fraunces', serif; font-weight:600; font-size: 16px; }
+.g-select { min-width:0; box-sizing:border-box; border:1px solid var(--line); border-radius:10px; padding:8px 10px; background:var(--surface); font-family:'Work Sans',sans-serif; font-size:13.5px; }
+.g-select.g-block { width:100%; }
+
+.g-ticket-list { display:flex; flex-direction:column; gap:14px; }
+.g-ticket { display:flex; background: var(--surface); border-radius:16px; overflow:hidden; box-shadow: 0 8px 20px rgba(43,27,46,0.07); border:1px solid var(--line); position:relative; }
+.g-ticket-main { flex:1; padding:16px; display:flex; gap:12px; }
+.g-ticket-emoji { font-size:26px; line-height:1; }
+.g-ticket-service { font-weight:600; font-size:15px; }
+.g-ticket-biz { font-family:'Fraunces', serif; font-size:16px; margin: 1px 0 6px; }
+.g-ticket-when { display:flex; align-items:center; gap:6px; font-size:13px; flex-wrap:wrap; }
+.g-badge-today { background: var(--gold); color:#3a2200; padding:2px 8px; border-radius:999px; font-weight:700; font-size:11.5px; }
+.g-badge { display:inline-flex; align-items:center; gap:4px; white-space:nowrap; background: var(--bg-alt); color: var(--ink); padding:2px 8px; border-radius:999px; font-weight:600; font-size:11.5px; }
+.g-dot { color: var(--muted); }
+.g-ticket-loc { color: var(--muted); font-size:12.5px; margin-top:6px; }
+.g-ticket-stub { width: 118px; border-left: 2px dashed var(--line); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:14px 10px; position:relative; background: var(--bg-alt); flex-shrink:0; }
+.g-ticket-stub::before, .g-ticket-stub::after { content:''; position:absolute; width:16px; height:16px; background: var(--bg); border-radius:50%; left:-9px; }
+.g-ticket-stub::before { top:-8px; } .g-ticket-stub::after { bottom:-8px; }
+.g-ticket-price { font-size:17px; font-weight:600; }
+.g-ticket-duration { font-size:11px; color: var(--muted); }
+.g-mono { font-family:'IBM Plex Mono', monospace; }
+
+.g-empty { text-align:center; padding: 50px 10px; color: var(--muted); }
+.g-empty-mark { font-size:30px; margin-bottom:10px; }
+
+.g-form-card { background: var(--surface); border-radius:18px; padding:20px; border:1px solid var(--line); box-shadow: 0 10px 30px rgba(43,27,46,0.06); margin-bottom: 22px; }
+.g-summary { color: var(--muted); margin: 0 0 14px; }
+.g-hint { color: var(--muted); font-size:12.5px; margin-top:4px; }
+.g-error { color: #B0233F; font-size: 12.5px; margin: 8px 0 0; }
+
+.g-thanks-mark { font-size: 44px; margin: 30px 0 6px; }
+
+.g-linklike { background:none; border:none; color: var(--accent-dark); font-weight:600; font-size:13.5px; cursor:pointer; padding:0; font-family:'Work Sans',sans-serif; transition: opacity .1s ease; }
+.g-linklike:active { opacity:0.6; }
+.g-danger { color: #B0233F; }
+
+.g-section-title { margin-top: 26px; }
+.g-list { display:flex; flex-direction:column; gap:8px; }
+.g-row-card { background: var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:13.5px; flex-wrap: wrap; }
+.g-row-actions { display:flex; gap:12px; flex-shrink:0; }
+.g-dim { opacity:0.55; }
+
+.g-dash-head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 18px; }
+
+.g-dash-stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); gap:8px; margin-bottom:10px; }
+.g-dash-stat { background: var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 6px; text-align:center; }
+.g-dash-stat-num { font-family:'Fraunces',serif; font-size:21px; color: var(--ink); }
+
+.g-gallery { display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-top:10px; }
+.g-gallery-item { position:relative; display:block; aspect-ratio:1/1; border-radius:10px; overflow:hidden; background: var(--bg-alt); border:1px solid var(--line); }
+.g-gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
+.g-gallery-remove { position:absolute; top:4px; right:4px; width:22px; height:22px; border-radius:999px; background:rgba(0,0,0,0.6); color:#fff; border:none; font-size:13px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; }
+.g-gallery-add-row { display:flex; gap:8px; margin-top:10px; }
+.g-gallery-add-row .g-input { flex:1; }
+.g-gallery-item.g-zoomable { border:none; padding:0; cursor:zoom-in; }
+
+.g-lightbox { position:fixed; inset:0; background:rgba(20,10,16,0.92); z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px; }
+.g-lightbox img { max-width:100%; max-height:100%; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,0.5); display:block; }
+.g-lightbox-close { position:absolute; top:16px; right:16px; width:38px; height:38px; border-radius:999px; background:rgba(255,255,255,0.15); color:#fff; border:none; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; }
+.g-lightbox-close:hover { background:rgba(255,255,255,0.28); }
+.g-gallery-empty { color: var(--muted); font-size:12.5px; margin-top:8px; }
+.g-avatar-row { display:flex; align-items:center; gap:10px; }
+.g-avatar-row .g-input { flex:1; }
+.g-avatar-preview { width:44px; height:44px; border-radius:999px; overflow:hidden; flex-shrink:0; border:1px solid var(--line); }
+.g-avatar-preview img { width:100%; height:100%; object-fit:cover; display:block; }
+.g-profile-avatar { width:76px; height:76px; border-radius:999px; overflow:hidden; border:2px solid var(--surface); box-shadow: 0 4px 14px rgba(43,27,46,0.12); margin-bottom:10px; }
+.g-profile-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+
+.g-footer { max-width:560px; margin: 30px auto 0; padding: 14px 20px 30px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color: var(--muted); font-size:12px; }
+
+.g-toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background: var(--ink); color:#fff; padding:10px 18px; border-radius:999px; font-size:13px; box-shadow:0 8px 20px rgba(0,0,0,0.2); z-index: 60; }
+
+.g-metrics { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom: 10px; }
+.g-metric { background: var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center; }
+.g-metric-num { font-size:20px; font-weight:600; }
+
+.g-plan-step { display:flex; align-items:center; gap:10px; margin: 14px 0 6px; }
+.g-plan-num { width:24px; height:24px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; }
+.g-plan-total { display:flex; justify-content:space-between; align-items:center; padding-top:14px; margin-top: 10px; border-top: 1px dashed var(--line); font-weight:600; }
+.g-unmet { background: var(--bg-alt); border-radius:10px; padding:10px 12px; font-size:12.5px; color: var(--muted); margin-top: 10px; }
+
+.g-loading { display:flex; align-items:center; justify-content:center; min-height:300px; }
+.g-spinner { width:28px; height:28px; border-radius:50%; border:3px solid var(--line); border-top-color: var(--accent); animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.g-header-deals { color: var(--accent-dark); font-size: 13px; }
+.g-deals-teaser { margin-top: 14px; border-radius:16px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; background: linear-gradient(135deg, var(--gold), var(--accent)); color: #fff; cursor:pointer; }
+.g-deals-teaser .g-eyebrow { color: #fff; opacity:0.9; }
+.g-deals-teaser p { color: rgba(255,255,255,0.9) !important; }
+.g-deal-flag { display:inline-block; background: var(--gold); color:#3a2200; font-weight:700; font-size:11.5px; padding:3px 9px; border-radius:999px; }
+.g-deal-price-old { text-decoration: line-through; color: var(--muted); font-size: 13px; }
+.g-ticket-biz-link { background:none; border:none; padding:0; cursor:pointer; text-align:left; font-family:'Fraunces', serif; font-size:16px; margin: 1px 0 6px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); }
+.g-ticket-biz-link:hover { color: var(--accent-dark); }
+
+.g-star-picker { display:flex; gap:6px; margin: 10px 0 4px; }
+.g-star-btn { background:none; border:none; font-size:30px; line-height:1; cursor:pointer; color: var(--line); padding:0; }
+.g-star-btn.filled { color: var(--gold); }
+.g-qr-box { background:#fff; border-radius:12px; padding:12px; display:inline-block; border:1px solid var(--line); }
+.g-link-row { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.g-link-row input { flex:1; }
+
+.g-onboard-step { display:flex; gap:14px; position:relative; padding-bottom:22px; }
+.g-onboard-step:last-child { padding-bottom:0; }
+.g-onboard-num { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg, var(--gold), var(--accent)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; box-shadow:0 4px 10px rgba(230,57,101,0.25); position:relative; z-index:1; }
+.g-onboard-line { position:absolute; left:19px; top:38px; bottom:0; width:2px; background:var(--line); }
+.g-onboard-title { font-family:'Fraunces',serif; font-weight:700; font-size:16px; margin-bottom:2px; }
+.g-onboard-body { color:var(--muted); font-size:13.5px; }
+.g-onboard-hero { text-align:center; padding: 6px 0 18px; }
+.g-onboard-hero-mark { font-size:40px; margin-bottom:8px; }
+.g-onboard-value { background: linear-gradient(135deg, var(--gold), var(--accent)); color:#fff; border-radius:14px; padding:16px 18px; margin-top:6px; font-family:'Fraunces',serif; font-weight:600; font-size:15.5px; text-align:center; line-height:1.4; }
+
+@media (max-width: 420px) {
+  .g-h1 { font-size: 30px; }
+  .g-ticket { flex-direction: column; }
+  .g-ticket-stub { width:100%; border-left:none; border-top:2px dashed var(--line); flex-direction:row; justify-content:space-between; padding:10px 16px; }
+  .g-ticket-stub::before, .g-ticket-stub::after { left: auto; top:-9px; }
+  .g-ticket-stub::before { right: 30%; } .g-ticket-stub::after { right: -9px; }
+  .g-metrics { grid-template-columns: repeat(2, 1fr); }
+  .g-two-col { grid-template-columns: 1fr; }
+}
+@media (max-width: 380px) {
+  .g-header { padding: 13px 14px; }
+  .g-logo { font-size: 17px; }
+  .g-header-cta { padding: 7px 11px; font-size: 12px; }
+  .g-header-deals { font-size: 12px; }
+  .g-page { padding: 16px; padding-bottom: 50px; }
+  .g-h1 { font-size: 26px; }
+  .g-h3 { font-size: 20px; }
+  .g-cat-grid { gap: 6px; }
+  .g-cat-tile { padding: 10px 4px; font-size: 10.5px; }
+  .g-form-card { padding: 16px; }
+  .g-dash-stats { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+var QRCodeCore=function(){var t={},e={};function n(e,n){t[e]=n}return n("dijkstrajs",function(t,e,n){t.exports={find_path:function(){throw new Error("dijkstrajs stub should not be called — use Segments.fromArray with an explicit byte-mode segment")}}}),n("./alignment-pattern",function(t,e,n){const r=n("./utils").getSymbolSize;e.getRowColCoords=function(t){if(1===t)return[];const e=Math.floor(t/7)+2,n=r(t),o=145===n?26:2*Math.ceil((n-13)/(2*e-2)),i=[n-7];for(let t=1;t<e-1;t++)i[t]=i[t-1]-o;return i.push(6),i.reverse()},e.getPositions=function(t){const n=[],r=e.getRowColCoords(t),o=r.length;for(let t=0;t<o;t++)for(let e=0;e<o;e++)0===t&&0===e||0===t&&e===o-1||t===o-1&&0===e||n.push([r[t],r[e]]);return n}}),n("./alphanumeric-data",function(t,e,n){const r=n("./mode"),o=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," ","$","%","*","+","-",".","/",":"];function i(t){this.mode=r.ALPHANUMERIC,this.data=t}i.getBitsLength=function(t){return 11*Math.floor(t/2)+t%2*6},i.prototype.getLength=function(){return this.data.length},i.prototype.getBitsLength=function(){return i.getBitsLength(this.data.length)},i.prototype.write=function(t){let e;for(e=0;e+2<=this.data.length;e+=2){let n=45*o.indexOf(this.data[e]);n+=o.indexOf(this.data[e+1]),t.put(n,11)}this.data.length%2&&t.put(o.indexOf(this.data[e]),6)},t.exports=i}),n("./bit-buffer",function(t,e,n){function r(){this.buffer=[],this.length=0}r.prototype={get:function(t){const e=Math.floor(t/8);return 1==(this.buffer[e]>>>7-t%8&1)},put:function(t,e){for(let n=0;n<e;n++)this.putBit(1==(t>>>e-n-1&1))},getLengthInBits:function(){return this.length},putBit:function(t){const e=Math.floor(this.length/8);this.buffer.length<=e&&this.buffer.push(0),t&&(this.buffer[e]|=128>>>this.length%8),this.length++}},t.exports=r}),n("./bit-matrix",function(t,e,n){function r(t){if(!t||t<1)throw new Error("BitMatrix size must be defined and greater than 0");this.size=t,this.data=new Uint8Array(t*t),this.reservedBit=new Uint8Array(t*t)}r.prototype.set=function(t,e,n,r){const o=t*this.size+e;this.data[o]=n,r&&(this.reservedBit[o]=!0)},r.prototype.get=function(t,e){return this.data[t*this.size+e]},r.prototype.xor=function(t,e,n){this.data[t*this.size+e]^=n},r.prototype.isReserved=function(t,e){return this.reservedBit[t*this.size+e]},t.exports=r}),n("./byte-data",function(t,e,n){const r=n("./mode");function o(t){this.mode=r.BYTE,this.data="string"==typeof t?(new TextEncoder).encode(t):new Uint8Array(t)}o.getBitsLength=function(t){return 8*t},o.prototype.getLength=function(){return this.data.length},o.prototype.getBitsLength=function(){return o.getBitsLength(this.data.length)},o.prototype.write=function(t){for(let e=0,n=this.data.length;e<n;e++)t.put(this.data[e],8)},t.exports=o}),n("./error-correction-code",function(t,e,n){const r=n("./error-correction-level"),o=[1,1,1,1,1,1,1,1,1,1,2,2,1,2,2,4,1,2,4,4,2,4,4,4,2,4,6,5,2,4,6,6,2,5,8,8,4,5,8,8,4,5,8,11,4,8,10,11,4,9,12,16,4,9,16,16,6,10,12,18,6,10,17,16,6,11,16,19,6,13,18,21,7,14,21,25,8,16,20,25,8,17,23,25,9,17,23,34,9,18,25,30,10,20,27,32,12,21,29,35,12,23,34,37,12,25,34,40,13,26,35,42,14,28,38,45,15,29,40,48,16,31,43,51,17,33,45,54,18,35,48,57,19,37,51,60,19,38,53,63,20,40,56,66,21,43,59,70,22,45,62,74,24,47,65,77,25,49,68,81],i=[7,10,13,17,10,16,22,28,15,26,36,44,20,36,52,64,26,48,72,88,36,64,96,112,40,72,108,130,48,88,132,156,60,110,160,192,72,130,192,224,80,150,224,264,96,176,260,308,104,198,288,352,120,216,320,384,132,240,360,432,144,280,408,480,168,308,448,532,180,338,504,588,196,364,546,650,224,416,600,700,224,442,644,750,252,476,690,816,270,504,750,900,300,560,810,960,312,588,870,1050,336,644,952,1110,360,700,1020,1200,390,728,1050,1260,420,784,1140,1350,450,812,1200,1440,480,868,1290,1530,510,924,1350,1620,540,980,1440,1710,570,1036,1530,1800,570,1064,1590,1890,600,1120,1680,1980,630,1204,1770,2100,660,1260,1860,2220,720,1316,1950,2310,750,1372,2040,2430];e.getBlocksCount=function(t,e){switch(e){case r.L:return o[4*(t-1)+0];case r.M:return o[4*(t-1)+1];case r.Q:return o[4*(t-1)+2];case r.H:return o[4*(t-1)+3];default:return}},e.getTotalCodewordsCount=function(t,e){switch(e){case r.L:return i[4*(t-1)+0];case r.M:return i[4*(t-1)+1];case r.Q:return i[4*(t-1)+2];case r.H:return i[4*(t-1)+3];default:return}}}),n("./error-correction-level",function(t,e,n){e.L={bit:1},e.M={bit:0},e.Q={bit:3},e.H={bit:2},e.isValid=function(t){return t&&void 0!==t.bit&&t.bit>=0&&t.bit<4},e.from=function(t,n){if(e.isValid(t))return t;try{return function(t){if("string"!=typeof t)throw new Error("Param is not a string");switch(t.toLowerCase()){case"l":case"low":return e.L;case"m":case"medium":return e.M;case"q":case"quartile":return e.Q;case"h":case"high":return e.H;default:throw new Error("Unknown EC Level: "+t)}}(t)}catch(t){return n}}}),n("./finder-pattern",function(t,e,n){const r=n("./utils").getSymbolSize;e.getPositions=function(t){const e=r(t);return[[0,0],[e-7,0],[0,e-7]]}}),n("./format-info",function(t,e,n){const r=n("./utils"),o=r.getBCHDigit(1335);e.getEncodedBits=function(t,e){const n=t.bit<<3|e;let i=n<<10;for(;r.getBCHDigit(i)-o>=0;)i^=1335<<r.getBCHDigit(i)-o;return 21522^(n<<10|i)}}),n("./galois-field",function(t,e,n){const r=new Uint8Array(512),o=new Uint8Array(256);!function(){let t=1;for(let e=0;e<255;e++)r[e]=t,o[t]=e,t<<=1,256&t&&(t^=285);for(let t=255;t<512;t++)r[t]=r[t-255]}(),e.log=function(t){if(t<1)throw new Error("log("+t+")");return o[t]},e.exp=function(t){return r[t]},e.mul=function(t,e){return 0===t||0===e?0:r[o[t]+o[e]]}}),n("./kanji-data",function(t,e,n){const r=n("./mode"),o=n("./utils");function i(t){this.mode=r.KANJI,this.data=t}i.getBitsLength=function(t){return 13*t},i.prototype.getLength=function(){return this.data.length},i.prototype.getBitsLength=function(){return i.getBitsLength(this.data.length)},i.prototype.write=function(t){let e;for(e=0;e<this.data.length;e++){let n=o.toSJIS(this.data[e]);if(n>=33088&&n<=40956)n-=33088;else{if(!(n>=57408&&n<=60351))throw new Error("Invalid SJIS character: "+this.data[e]+"\nMake sure your charset is UTF-8");n-=49472}n=192*(n>>>8&255)+(255&n),t.put(n,13)}},t.exports=i}),n("./mask-pattern",function(t,e,n){e.Patterns={PATTERN000:0,PATTERN001:1,PATTERN010:2,PATTERN011:3,PATTERN100:4,PATTERN101:5,PATTERN110:6,PATTERN111:7};const r=3,o=3,i=40,s=10;function a(t,n,r){switch(t){case e.Patterns.PATTERN000:return(n+r)%2==0;case e.Patterns.PATTERN001:return n%2==0;case e.Patterns.PATTERN010:return r%3==0;case e.Patterns.PATTERN011:return(n+r)%3==0;case e.Patterns.PATTERN100:return(Math.floor(n/2)+Math.floor(r/3))%2==0;case e.Patterns.PATTERN101:return n*r%2+n*r%3==0;case e.Patterns.PATTERN110:return(n*r%2+n*r%3)%2==0;case e.Patterns.PATTERN111:return(n*r%3+(n+r)%2)%2==0;default:throw new Error("bad maskPattern:"+t)}}e.isValid=function(t){return null!=t&&""!==t&&!isNaN(t)&&t>=0&&t<=7},e.from=function(t){return e.isValid(t)?parseInt(t,10):void 0},e.getPenaltyN1=function(t){const e=t.size;let n=0,o=0,i=0,s=null,a=null;for(let u=0;u<e;u++){o=i=0,s=a=null;for(let c=0;c<e;c++){let e=t.get(u,c);e===s?o++:(o>=5&&(n+=r+(o-5)),s=e,o=1),e=t.get(c,u),e===a?i++:(i>=5&&(n+=r+(i-5)),a=e,i=1)}o>=5&&(n+=r+(o-5)),i>=5&&(n+=r+(i-5))}return n},e.getPenaltyN2=function(t){const e=t.size;let n=0;for(let r=0;r<e-1;r++)for(let o=0;o<e-1;o++){const e=t.get(r,o)+t.get(r,o+1)+t.get(r+1,o)+t.get(r+1,o+1);4!==e&&0!==e||n++}return n*o},e.getPenaltyN3=function(t){const e=t.size;let n=0,r=0,o=0;for(let i=0;i<e;i++){r=o=0;for(let s=0;s<e;s++)r=r<<1&2047|t.get(i,s),s>=10&&(1488===r||93===r)&&n++,o=o<<1&2047|t.get(s,i),s>=10&&(1488===o||93===o)&&n++}return n*i},e.getPenaltyN4=function(t){let e=0;const n=t.data.length;for(let r=0;r<n;r++)e+=t.data[r];return Math.abs(Math.ceil(100*e/n/5)-10)*s},e.applyMask=function(t,e){const n=e.size;for(let r=0;r<n;r++)for(let o=0;o<n;o++)e.isReserved(o,r)||e.xor(o,r,a(t,o,r))},e.getBestMask=function(t,n){const r=Object.keys(e.Patterns).length;let o=0,i=1/0;for(let s=0;s<r;s++){n(s),e.applyMask(s,t);const r=e.getPenaltyN1(t)+e.getPenaltyN2(t)+e.getPenaltyN3(t)+e.getPenaltyN4(t);e.applyMask(s,t),r<i&&(i=r,o=s)}return o}}),n("./mode",function(t,e,n){const r=n("./version-check"),o=n("./regex");e.NUMERIC={id:"Numeric",bit:1,ccBits:[10,12,14]},e.ALPHANUMERIC={id:"Alphanumeric",bit:2,ccBits:[9,11,13]},e.BYTE={id:"Byte",bit:4,ccBits:[8,16,16]},e.KANJI={id:"Kanji",bit:8,ccBits:[8,10,12]},e.MIXED={bit:-1},e.getCharCountIndicator=function(t,e){if(!t.ccBits)throw new Error("Invalid mode: "+t);if(!r.isValid(e))throw new Error("Invalid version: "+e);return e>=1&&e<10?t.ccBits[0]:e<27?t.ccBits[1]:t.ccBits[2]},e.getBestModeForData=function(t){return o.testNumeric(t)?e.NUMERIC:o.testAlphanumeric(t)?e.ALPHANUMERIC:o.testKanji(t)?e.KANJI:e.BYTE},e.toString=function(t){if(t&&t.id)return t.id;throw new Error("Invalid mode")},e.isValid=function(t){return t&&t.bit&&t.ccBits},e.from=function(t,n){if(e.isValid(t))return t;try{return function(t){if("string"!=typeof t)throw new Error("Param is not a string");switch(t.toLowerCase()){case"numeric":return e.NUMERIC;case"alphanumeric":return e.ALPHANUMERIC;case"kanji":return e.KANJI;case"byte":return e.BYTE;default:throw new Error("Unknown mode: "+t)}}(t)}catch(t){return n}}}),n("./numeric-data",function(t,e,n){const r=n("./mode");function o(t){this.mode=r.NUMERIC,this.data=t.toString()}o.getBitsLength=function(t){return 10*Math.floor(t/3)+(t%3?t%3*3+1:0)},o.prototype.getLength=function(){return this.data.length},o.prototype.getBitsLength=function(){return o.getBitsLength(this.data.length)},o.prototype.write=function(t){let e,n,r;for(e=0;e+3<=this.data.length;e+=3)n=this.data.substr(e,3),r=parseInt(n,10),t.put(r,10);const o=this.data.length-e;o>0&&(n=this.data.substr(e),r=parseInt(n,10),t.put(r,3*o+1))},t.exports=o}),n("./polynomial",function(t,e,n){const r=n("./galois-field");e.mul=function(t,e){const n=new Uint8Array(t.length+e.length-1);for(let o=0;o<t.length;o++)for(let i=0;i<e.length;i++)n[o+i]^=r.mul(t[o],e[i]);return n},e.mod=function(t,e){let n=new Uint8Array(t);for(;n.length-e.length>=0;){const t=n[0];for(let o=0;o<e.length;o++)n[o]^=r.mul(e[o],t);let o=0;for(;o<n.length&&0===n[o];)o++;n=n.slice(o)}return n},e.generateECPolynomial=function(t){let n=new Uint8Array([1]);for(let o=0;o<t;o++)n=e.mul(n,new Uint8Array([1,r.exp(o)]));return n}}),n("./qrcode",function(t,e,n){const r=n("./utils"),o=n("./error-correction-level"),i=n("./bit-buffer"),s=n("./bit-matrix"),a=n("./alignment-pattern"),u=n("./finder-pattern"),c=n("./mask-pattern"),l=n("./error-correction-code"),f=n("./reed-solomon-encoder"),d=n("./version"),h=n("./format-info"),g=n("./mode"),p=n("./segments");function m(t,e,n){const r=t.size,o=h.getEncodedBits(e,n);let i,s;for(i=0;i<15;i++)s=1==(o>>i&1),i<6?t.set(i,8,s,!0):i<8?t.set(i+1,8,s,!0):t.set(r-15+i,8,s,!0),i<8?t.set(8,r-i-1,s,!0):i<9?t.set(8,15-i-1+1,s,!0):t.set(8,15-i-1,s,!0);t.set(r-8,8,1,!0)}function E(t,e,n){const o=new i;n.forEach(function(e){o.put(e.mode.bit,4),o.put(e.getLength(),g.getCharCountIndicator(e.mode,t)),e.write(o)});const s=8*(r.getSymbolTotalCodewords(t)-l.getTotalCodewordsCount(t,e));for(o.getLengthInBits()+4<=s&&o.put(0,4);o.getLengthInBits()%8!=0;)o.putBit(0);const a=(s-o.getLengthInBits())/8;for(let t=0;t<a;t++)o.put(t%2?17:236,8);return function(t,e,n){const o=r.getSymbolTotalCodewords(e),i=l.getTotalCodewordsCount(e,n),s=o-i,a=l.getBlocksCount(e,n),u=o%a,c=a-u,d=Math.floor(o/a),h=Math.floor(s/a),g=h+1,p=d-h,m=new f(p);let E=0;const w=new Array(a),A=new Array(a);let y=0;const B=new Uint8Array(t.buffer);for(let t=0;t<a;t++){const e=t<c?h:g;w[t]=B.slice(E,E+e),A[t]=m.encode(w[t]),E+=e,y=Math.max(y,e)}const C=new Uint8Array(o);let N,I,M=0;for(N=0;N<y;N++)for(I=0;I<a;I++)N<w[I].length&&(C[M++]=w[I][N]);for(N=0;N<p;N++)for(I=0;I<a;I++)C[M++]=A[I][N];return C}(o,t,e)}function w(t,e,n,o){let i;if(Array.isArray(t))i=p.fromArray(t);else{if("string"!=typeof t)throw new Error("Invalid data");{let r=e;if(!r){const e=p.rawSplit(t);r=d.getBestVersionForData(e,n)}i=p.fromString(t,r||40)}}const l=d.getBestVersionForData(i,n);if(!l)throw new Error("The amount of data is too big to be stored in a QR Code");if(e){if(e<l)throw new Error("\nThe chosen QR Code version cannot contain this amount of data.\nMinimum version required to store current data is: "+l+".\n")}else e=l;const f=E(e,n,i),h=r.getSymbolSize(e),g=new s(h);return function(t,e){const n=t.size,r=u.getPositions(e);for(let e=0;e<r.length;e++){const o=r[e][0],i=r[e][1];for(let e=-1;e<=7;e++)if(!(o+e<=-1||n<=o+e))for(let r=-1;r<=7;r++)i+r<=-1||n<=i+r||(e>=0&&e<=6&&(0===r||6===r)||r>=0&&r<=6&&(0===e||6===e)||e>=2&&e<=4&&r>=2&&r<=4?t.set(o+e,i+r,!0,!0):t.set(o+e,i+r,!1,!0))}}(g,e),function(t){const e=t.size;for(let n=8;n<e-8;n++){const e=n%2==0;t.set(n,6,e,!0),t.set(6,n,e,!0)}}(g),function(t,e){const n=a.getPositions(e);for(let e=0;e<n.length;e++){const r=n[e][0],o=n[e][1];for(let e=-2;e<=2;e++)for(let n=-2;n<=2;n++)-2===e||2===e||-2===n||2===n||0===e&&0===n?t.set(r+e,o+n,!0,!0):t.set(r+e,o+n,!1,!0)}}(g,e),m(g,n,0),e>=7&&function(t,e){const n=t.size,r=d.getEncodedBits(e);let o,i,s;for(let e=0;e<18;e++)o=Math.floor(e/3),i=e%3+n-8-3,s=1==(r>>e&1),t.set(o,i,s,!0),t.set(i,o,s,!0)}(g,e),function(t,e){const n=t.size;let r=-1,o=n-1,i=7,s=0;for(let a=n-1;a>0;a-=2)for(6===a&&a--;;){for(let n=0;n<2;n++)if(!t.isReserved(o,a-n)){let r=!1;s<e.length&&(r=1==(e[s]>>>i&1)),t.set(o,a-n,r),i--,-1===i&&(s++,i=7)}if(o+=r,o<0||n<=o){o-=r,r=-r;break}}}(g,f),isNaN(o)&&(o=c.getBestMask(g,m.bind(null,g,n))),c.applyMask(o,g),m(g,n,o),{modules:g,version:e,errorCorrectionLevel:n,maskPattern:o,segments:i}}e.create=function(t,e){if(void 0===t||""===t)throw new Error("No input text");let n,i,s=o.M;return void 0!==e&&(s=o.from(e.errorCorrectionLevel,o.M),n=d.from(e.version),i=c.from(e.maskPattern),e.toSJISFunc&&r.setToSJISFunction(e.toSJISFunc)),w(t,n,s,i)}}),n("./reed-solomon-encoder",function(t,e,n){const r=n("./polynomial");function o(t){this.genPoly=void 0,this.degree=t,this.degree&&this.initialize(this.degree)}o.prototype.initialize=function(t){this.degree=t,this.genPoly=r.generateECPolynomial(this.degree)},o.prototype.encode=function(t){if(!this.genPoly)throw new Error("Encoder not initialized");const e=new Uint8Array(t.length+this.degree);e.set(t);const n=r.mod(e,this.genPoly),o=this.degree-n.length;if(o>0){const t=new Uint8Array(this.degree);return t.set(n,o),t}return n},t.exports=o}),n("./regex",function(t,e,n){const r="[0-9]+";let o="(?:[u3000-u303F]|[u3040-u309F]|[u30A0-u30FF]|[uFF00-uFFEF]|[u4E00-u9FAF]|[u2605-u2606]|[u2190-u2195]|u203B|[u2010u2015u2018u2019u2025u2026u201Cu201Du2225u2260]|[u0391-u0451]|[u00A7u00A8u00B1u00B4u00D7u00F7])+";o=o.replace(/u/g,"\\u");const i="(?:(?![A-Z0-9 $%*+\\-./:]|"+o+")(?:.|[\r\n]))+";e.KANJI=new RegExp(o,"g"),e.BYTE_KANJI=new RegExp("[^A-Z0-9 $%*+\\-./:]+","g"),e.BYTE=new RegExp(i,"g"),e.NUMERIC=new RegExp(r,"g"),e.ALPHANUMERIC=new RegExp("[A-Z $%*+\\-./:]+","g");const s=new RegExp("^"+o+"$"),a=new RegExp("^"+r+"$"),u=new RegExp("^[A-Z0-9 $%*+\\-./:]+$");e.testKanji=function(t){return s.test(t)},e.testNumeric=function(t){return a.test(t)},e.testAlphanumeric=function(t){return u.test(t)}}),n("./segments",function(t,e,n){const r=n("./mode"),o=n("./numeric-data"),i=n("./alphanumeric-data"),s=n("./byte-data"),a=n("./kanji-data"),u=n("./regex"),c=n("./utils"),l=n("dijkstrajs");function f(t){return unescape(encodeURIComponent(t)).length}function d(t,e,n){const r=[];let o;for(;null!==(o=t.exec(n));)r.push({data:o[0],index:o.index,mode:e,length:o[0].length});return r}function h(t){const e=d(u.NUMERIC,r.NUMERIC,t),n=d(u.ALPHANUMERIC,r.ALPHANUMERIC,t);let o,i;c.isKanjiModeEnabled()?(o=d(u.BYTE,r.BYTE,t),i=d(u.KANJI,r.KANJI,t)):(o=d(u.BYTE_KANJI,r.BYTE,t),i=[]);return e.concat(n,o,i).sort(function(t,e){return t.index-e.index}).map(function(t){return{data:t.data,mode:t.mode,length:t.length}})}function g(t,e){switch(e){case r.NUMERIC:return o.getBitsLength(t);case r.ALPHANUMERIC:return i.getBitsLength(t);case r.KANJI:return a.getBitsLength(t);case r.BYTE:return s.getBitsLength(t)}}function p(t,e){let n;const u=r.getBestModeForData(t);if(n=r.from(e,u),n!==r.BYTE&&n.bit<u.bit)throw new Error('"'+t+'" cannot be encoded with mode '+r.toString(n)+".\n Suggested mode is: "+r.toString(u));switch(n!==r.KANJI||c.isKanjiModeEnabled()||(n=r.BYTE),n){case r.NUMERIC:return new o(t);case r.ALPHANUMERIC:return new i(t);case r.KANJI:return new a(t);case r.BYTE:return new s(t)}}e.fromArray=function(t){return t.reduce(function(t,e){return"string"==typeof e?t.push(p(e,null)):e.data&&t.push(p(e.data,e.mode)),t},[])},e.fromString=function(t,n){const o=function(t){const e=[];for(let n=0;n<t.length;n++){const o=t[n];switch(o.mode){case r.NUMERIC:e.push([o,{data:o.data,mode:r.ALPHANUMERIC,length:o.length},{data:o.data,mode:r.BYTE,length:o.length}]);break;case r.ALPHANUMERIC:e.push([o,{data:o.data,mode:r.BYTE,length:o.length}]);break;case r.KANJI:e.push([o,{data:o.data,mode:r.BYTE,length:f(o.data)}]);break;case r.BYTE:e.push([{data:o.data,mode:r.BYTE,length:f(o.data)}])}}return e}(h(t,c.isKanjiModeEnabled())),i=function(t,e){const n={},o={start:{}};let i=["start"];for(let s=0;s<t.length;s++){const a=t[s],u=[];for(let t=0;t<a.length;t++){const c=a[t],l=""+s+t;u.push(l),n[l]={node:c,lastCount:0},o[l]={};for(let t=0;t<i.length;t++){const s=i[t];n[s]&&n[s].node.mode===c.mode?(o[s][l]=g(n[s].lastCount+c.length,c.mode)-g(n[s].lastCount,c.mode),n[s].lastCount+=c.length):(n[s]&&(n[s].lastCount=c.length),o[s][l]=g(c.length,c.mode)+4+r.getCharCountIndicator(c.mode,e))}}i=u}for(let t=0;t<i.length;t++)o[i[t]].end=0;return{map:o,table:n}}(o,n),s=l.find_path(i.map,"start","end"),a=[];for(let t=1;t<s.length-1;t++)a.push(i.table[s[t]].node);return e.fromArray(function(t){return t.reduce(function(t,e){const n=t.length-1>=0?t[t.length-1]:null;return n&&n.mode===e.mode?(t[t.length-1].data+=e.data,t):(t.push(e),t)},[])}(a))},e.rawSplit=function(t){return e.fromArray(h(t,c.isKanjiModeEnabled()))}}),n("./utils",function(t,e,n){let r;const o=[0,26,44,70,100,134,172,196,242,292,346,404,466,532,581,655,733,815,901,991,1085,1156,1258,1364,1474,1588,1706,1828,1921,2051,2185,2323,2465,2611,2761,2876,3034,3196,3362,3532,3706];e.getSymbolSize=function(t){if(!t)throw new Error('"version" cannot be null or undefined');if(t<1||t>40)throw new Error('"version" should be in range from 1 to 40');return 4*t+17},e.getSymbolTotalCodewords=function(t){return o[t]},e.getBCHDigit=function(t){let e=0;for(;0!==t;)e++,t>>>=1;return e},e.setToSJISFunction=function(t){if("function"!=typeof t)throw new Error('"toSJISFunc" is not a valid function.');r=t},e.isKanjiModeEnabled=function(){return void 0!==r},e.toSJIS=function(t){return r(t)}}),n("./version-check",function(t,e,n){e.isValid=function(t){return!isNaN(t)&&t>=1&&t<=40}}),n("./version",function(t,e,n){const r=n("./utils"),o=n("./error-correction-code"),i=n("./error-correction-level"),s=n("./mode"),a=n("./version-check"),u=r.getBCHDigit(7973);function c(t,e){return s.getCharCountIndicator(t,e)+4}function l(t,e){let n=0;return t.forEach(function(t){const r=c(t.mode,e);n+=r+t.getBitsLength()}),n}e.from=function(t,e){return a.isValid(t)?parseInt(t,10):e},e.getCapacity=function(t,e,n){if(!a.isValid(t))throw new Error("Invalid QR Code version");void 0===n&&(n=s.BYTE);const i=8*(r.getSymbolTotalCodewords(t)-o.getTotalCodewordsCount(t,e));if(n===s.MIXED)return i;const u=i-c(n,t);switch(n){case s.NUMERIC:return Math.floor(u/10*3);case s.ALPHANUMERIC:return Math.floor(u/11*2);case s.KANJI:return Math.floor(u/13);case s.BYTE:default:return Math.floor(u/8)}},e.getBestVersionForData=function(t,n){let r;const o=i.from(n,i.M);if(Array.isArray(t)){if(t.length>1)return function(t,n){for(let r=1;r<=40;r++)if(l(t,r)<=e.getCapacity(r,n,s.MIXED))return r}(t,o);if(0===t.length)return 1;r=t[0]}else r=t;return function(t,n,r){for(let o=1;o<=40;o++)if(n<=e.getCapacity(o,r,t))return o}(r.mode,r.getLength(),o)},e.getEncodedBits=function(t){if(!a.isValid(t)||t<7)throw new Error("Invalid QR Code version");let e=t<<12;for(;r.getBCHDigit(e)-u>=0;)e^=7973<<r.getBCHDigit(e)-u;return t<<12|e}}),function n(r){if(e[r])return e[r].exports;var o={exports:{}};return e[r]=o,t[r](o,o.exports,n),o.exports}("./qrcode")}();
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+<script>
+/* =====================================================================
+   GLAMR — Firebase config
+   Get these values from: Firebase console -> Project settings (gear icon)
+   -> General tab -> "Your apps" -> the web app (</>) -> SDK setup and
+   configuration -> "Config". Paste them in below. These values are safe
+   to expose publicly (they identify your project, they don't grant
+   access) — real access control lives entirely in your Firestore rules.
+===================================================================== */
+const firebaseConfig = {
+  apiKey: "AIzaSyD9jF2VjmPcrygU_xNm2fGjJZAURAac8Y8",
+  authDomain: "glamr-33934.firebaseapp.com",
+  projectId: "glamr-33934",
+  storageBucket: "glamr-33934.firebasestorage.app",
+  messagingSenderId: "467391315343",
+  appId: "1:467391315343:web:10fa18e796644f5927dffa",
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+</script>
+
+<script>
+/* =====================================================================
+   GLAMR — single-file prototype
+   Core: real-time last-minute beauty availability marketplace.
+   "Build My Look" (occasion → AI plan → real vendor matches) is a
+   PHASE 2 feature. It is intentionally paused for the MVP so the
+   product carries zero AI/API usage and zero AI credit cost while we
+   build vendor supply and real booking behavior. The implementation
+   below (constants, state, view, actions) is kept intact and simply
+   gated off by GLAMR_ME_ENABLED so it can be switched back on later
+   without rebuilding it from scratch. Its current logic is NOT AI —
+   it's a hardcoded occasion→service lookup — the real AI step (an LLM
+   turning a free-text description into a plan) is the Phase 2 work.
+   Data lives in Firebase (Auth + Firestore) so every visitor sees the
+   same live marketplace.
+===================================================================== */
+
+const GLAMR_ME_ENABLED = false; // Paused again — thin vendor supply makes the plan-builder mostly return "nothing found." Flip to true once there's enough opening inventory that a plan usually resolves to real bookings.
+
+// Official Glamour master service categories — used everywhere the app
+// organizes, searches, filters, or displays services (search, vendor
+// signup, opening/deal forms, category pages, deals). Do not add ad hoc
+// categories elsewhere; extend this single list instead.
+const SERVICES = ['Haircut', 'Barber', 'Braids', 'Locs', 'Natural Hair', 'Silk Press', 'Wig Install', 'Wigs & Extensions', 'Makeup', 'Lashes', 'Brows', 'Nails', 'Skincare', 'Waxing', 'Other Beauty Services'];
+const SERVICE_EMOJI = {
+  Haircut: '✂️', Barber: '💈', Braids: '🪮', Locs: '🌀', 'Natural Hair': '🌿', 'Silk Press': '✨', 'Wig Install': '👱🏽‍♀️', 'Wigs & Extensions': '👱🏽‍♀️',
+  Makeup: '💄', Lashes: '👁️', Brows: '✏️', Nails: '💅🏽', Skincare: '🧴', Waxing: '🕯️', 'Other Beauty Services': '🌸',
+};
+const WHEN_OPTIONS = ['Today', 'Tomorrow', 'This Weekend'];
+// "lol lol" vendor-dashboard-only accent colors — a per-device look-and-feel
+// preference, purely cosmetic, never affects the customer-facing app.
+const DASH_ACCENTS = [
+  { key: 'rose', name: 'Rose', accent: '#E63965', dark: '#C41F4B' },
+  { key: 'purple', name: 'Purple', accent: '#7C3AED', dark: '#5B21B6' },
+  { key: 'teal', name: 'Teal', accent: '#0D9488', dark: '#0F766E' },
+  { key: 'amber', name: 'Amber', accent: '#D97706', dark: '#B45309' },
+  { key: 'navy', name: 'Navy', accent: '#1D4ED8', dark: '#1E3A8A' },
+];
+const TIME_OPTIONS = ['Any time', 'Morning', 'Afternoon', 'Evening'];
+const OCCASIONS = ['Date Night', 'Birthday', 'Wedding', 'Vacation', 'Photoshoot', 'Party', 'Just Want to Look Good'];
+const OCCASION_SERVICES = {
+  'Date Night': ['Haircut', 'Makeup'],
+  'Birthday': ['Haircut', 'Nails', 'Makeup'],
+  'Wedding': ['Haircut', 'Makeup', 'Nails', 'Lashes'],
+  'Vacation': ['Nails', 'Waxing'],
+  'Photoshoot': ['Haircut', 'Makeup', 'Lashes'],
+  'Party': ['Makeup', 'Nails'],
+  'Just Want to Look Good': ['Haircut', 'Nails'],
+};
+const DEAL_SCOPES = [
+  { value: 'general', label: 'General — any last-minute booking' },
+  { value: 'specific', label: 'Specific date & time only' },
+];
+const ADMIN_PASSCODE = 'demo-admin'; // MVP only — not real security
+const METRIC_KEYS = ['search_started', 'search_completed', 'appointment_viewed', 'instagram_book_clicked', 'website_book_clicked', 'booking_confirmed', 'provider_signup', 'provider_opening_posted', 'deals_viewed', 'deal_posted', 'review_link_copied', 'review_submitted'];
+
+
+function uid() { return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); }
+// GLAMR only serves the Houston/Katy, TX area — every date shown or matched
+// ("Today", "Tomorrow", weekend picks) needs to mean Central Time, not
+// whatever timezone a device happens to be set to (a vendor's phone set to
+// the wrong zone, or a browser defaulting to UTC, would otherwise silently
+// shift "today" by a day, especially in the evening). All calendar-date
+// math below is anchored to America/Chicago via this helper rather than
+// the browser's local clock or toISOString() (which is UTC).
+const TX_TIMEZONE = 'America/Chicago';
+function txDateParts(d) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: TX_TIMEZONE, year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short',
+  }).formatToParts(d || new Date());
+  const out = {};
+  parts.forEach(function (p) { if (p.type !== 'literal') out[p.type] = p.value; });
+  return out; // { year, month, day, weekday }
+}
+function todayStr(offset) {
+  offset = offset || 0;
+  const p = txDateParts();
+  // Anchor to the CT calendar date, then do day-offset math in UTC purely
+  // as a neutral "day counter" \u2014 this avoids DST re-triggering a timezone
+  // conversion partway through the arithmetic.
+  const d = new Date(Date.UTC(Number(p.year), Number(p.month) - 1, Number(p.day)));
+  d.setUTCDate(d.getUTCDate() + offset);
+  return d.toISOString().slice(0, 10);
+}
+function nextWeekendDates() {
+  const p = txDateParts();
+  const weekdayIndex = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[p.weekday];
+  const toSat = (6 - weekdayIndex + 7) % 7 || 7;
+  const base = new Date(Date.UTC(Number(p.year), Number(p.month) - 1, Number(p.day)));
+  const sat = new Date(base); sat.setUTCDate(base.getUTCDate() + toSat);
+  const sun = new Date(sat); sun.setUTCDate(sat.getUTCDate() + 1);
+  return [sat.toISOString().slice(0, 10), sun.toISOString().slice(0, 10)];
+}
+function fmtDate(dstr) {
+  const t = todayStr(0), tm = todayStr(1);
+  if (dstr === t) return 'Today';
+  if (dstr === tm) return 'Tomorrow';
+  const d = new Date(dstr + 'T00:00:00');
+  return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+}
+function fmtTime(t) {
+  const parts = t.split(':').map(Number);
+  const h = parts[0], m = parts[1];
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return h12 + ':' + String(m).padStart(2, '0') + ' ' + ampm;
+}
+function timeBucket(t) {
+  const h = Number(t.split(':')[0]);
+  if (h < 12) return 'Morning';
+  if (h < 17) return 'Afternoon';
+  return 'Evening';
+}
+function matchesWhen(dateStr, when) {
+  if (!when || when === 'Any') return true;
+  if (when === 'Today') return dateStr === todayStr(0);
+  if (when === 'Tomorrow') return dateStr === todayStr(1);
+  if (when === 'This Weekend') { const w = nextWeekendDates(); return dateStr === w[0] || dateStr === w[1]; }
+  return true;
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+/* ---------------------------- deals ---------------------------- */
+
+function isDealActive(deal) {
+  if (!deal) return false;
+  const exp = new Date(deal.expiresAt).getTime();
+  if (isNaN(exp)) return false;
+  return exp > Date.now();
+}
+function dealAppliesToOpening(deal, opening) {
+  if (!isDealActive(deal)) return false;
+  if (deal.service !== opening.service) return false;
+  if (deal.scope === 'specific') return deal.specificDate === opening.date && deal.specificTime === opening.time;
+  return true;
+}
+function dealExpiryLabel(deal) {
+  if (!deal) return '';
+  const exp = new Date(deal.expiresAt);
+  if (isNaN(exp.getTime())) return '';
+  if (!isDealActive(deal)) return 'Expired';
+  const dateStr = exp.toISOString().slice(0, 10);
+  const timeStr = String(exp.getHours()).padStart(2, '0') + ':' + String(exp.getMinutes()).padStart(2, '0');
+  return 'Expires ' + fmtDate(dateStr) + ' ' + fmtTime(timeStr);
+}
+function dealDiscountPercent(deal) {
+  if (deal.discountPercent) return Number(deal.discountPercent);
+  const orig = Number(deal.originalPrice), dp = Number(deal.dealPrice);
+  if (!orig || isNaN(orig) || isNaN(dp)) return null;
+  return Math.round((1 - dp / orig) * 100);
+}
+function activeDeals() {
+  const out = [];
+  S.data.providers.forEach(function (p) {
+    if (isDealActive(p.deal)) out.push({ provider: p, deal: p.deal });
+  });
+  out.sort(function (a, b) { return new Date(a.deal.expiresAt) - new Date(b.deal.expiresAt); });
+  return out;
+}
+
+// Featured Pros — a rotating home-screen spotlight for vendors who've
+// visible to anyone browsing (not just people who already have their link).
+// Rotation is deterministic, not random or admin-picked: it advances by a
+// fixed window each week based on the calendar week itself, so every Pro
+// vendor cycles through fairly over time with zero manual curation. Returns
+// an empty list when there are no Pro vendors yet, so the section can hide
+// itself entirely rather than show a half-empty spotlight.
+function featuredPros(category) {
+  const pros = S.data.providers.filter(function (p) { return p.featured && (!category || p.services.indexOf(category) !== -1); });
+  if (!pros.length) return [];
+  const sorted = pros.slice().sort(function (a, b) { return a.id < b.id ? -1 : (a.id > b.id ? 1 : 0); });
+  const windowSize = Math.min(5, sorted.length);
+  const weekIndex = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
+  const start = (weekIndex * windowSize) % sorted.length;
+  const picked = [];
+  for (let i = 0; i < windowSize; i++) picked.push(sorted[(start + i) % sorted.length]);
+  return picked;
+}
+/* ---------------------------- reviews ---------------------------- */
+
+function reviewsForProvider(id) {
+  return S.data.reviews.filter(function (r) { return r.providerId === id; }).slice().sort(function (a, b) { return b.createdAt - a.createdAt; });
+}
+function avgRating(id) {
+  const list = reviewsForProvider(id);
+  if (!list.length) return null;
+  const sum = list.reduce(function (s, r) { return s + r.rating; }, 0);
+  return Math.round((sum / list.length) * 10) / 10;
+}
+function reviewLinkFor(providerId) {
+  return window.location.origin + window.location.pathname + '?review=' + providerId;
+}
+function waitlistLinkFor(providerId) {
+  return window.location.origin + window.location.pathname + '?waitlist=' + providerId;
+}
+// One-tap "Mark as booked" link for a single opening — meant to be texted/
+// emailed to the vendor (manually for now) after a click on that opening.
+function confirmLinkFor(openingId) {
+  return window.location.origin + window.location.pathname + '?confirm=' + openingId;
+}
+function starString(rating) {
+  const full = Math.round(rating);
+  let s = '';
+  for (let i = 1; i <= 5; i++) s += (i <= full ? '\u2605' : '\u2606');
+  return s;
+}
+
+/* ---------------------------- QR code (offline, no network) ---------------------------- */
+
+function renderQRSVG(text, size) {
+  size = size || 180;
+  try {
+    const qr = QRCodeCore.create([{ data: text, mode: 'byte' }], { errorCorrectionLevel: 'M' });
+    const n = qr.modules.size;
+    const data = qr.modules.data;
+    const quiet = 4;
+    const full = n + quiet * 2;
+    let rects = '';
+    for (let y = 0; y < n; y++) {
+      for (let x = 0; x < n; x++) {
+        if (data[y * n + x]) rects += '<rect x="' + (x + quiet) + '" y="' + (y + quiet) + '" width="1" height="1"/>';
+      }
+    }
+    return '<svg viewBox="0 0 ' + full + ' ' + full + '" width="' + size + '" height="' + size + '" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">' +
+      '<rect x="0" y="0" width="' + full + '" height="' + full + '" fill="#fff"/>' +
+      '<g fill="#2B1B2E">' + rects + '</g>' +
+    '</svg>';
+  } catch (e) {
+    return '<div class="g-hint">QR code unavailable (' + esc(e.message || 'error') + ')</div>';
+  }
+}
+
+/* ---------------------------- seed + storage ---------------------------- */
+
+function seedData() {
+  const providers = [
+    { id: uid(), businessName: 'Blush & Co Hair Studio', ownerName: 'Maya Fontenot', email: 'maya@blushandco.com', phone: '281-555-0111', password: 'demo123', city: 'Katy, TX', zip: '77494', services: ['Haircut', 'Silk Press'], instagram: 'https://instagram.com/blushandcohair', profilePhoto: '', description: 'Silk presses and precision cuts for busy schedules \u2014 walk-ins welcome when a slot opens.', portfolio: [], profileViews: 142, offerViews: 58, portfolioViews: 31, instagramClicks: 19, confirmedBookings: 0, createdAt: Date.now() - 30 * 86400000, deal: null },
+    { id: uid(), businessName: 'Fresh Fades Barbershop', ownerName: 'Deion Walker', email: 'deion@freshfades.com', phone: '281-555-0122', password: 'demo123', city: 'Katy, TX', zip: '77449', services: ['Barber'], instagram: 'https://instagram.com/freshfadesbarbers', profilePhoto: '', description: 'Clean fades, line-ups, and beard work. Same-day openings posted daily.', portfolio: [], profileViews: 98, offerViews: 40, portfolioViews: 12, instagramClicks: 27, confirmedBookings: 0, createdAt: Date.now() - 45 * 86400000, deal: null },
+    { id: uid(), businessName: 'Crown Braids Studio', ownerName: 'Ify Okafor', email: 'ify@crownbraids.com', phone: '713-555-0133', password: 'demo123', city: 'Houston, TX', zip: '77043', services: ['Braids', 'Locs', 'Natural Hair'], instagram: 'https://instagram.com/crownbraidsstudio', profilePhoto: '', description: 'Knotless braids, loc retwists, and natural hair care by appointment and last-minute openings.', portfolio: [], profileViews: 210, offerViews: 76, portfolioViews: 54, instagramClicks: 33, confirmedBookings: 0, createdAt: Date.now() - 60 * 86400000, deal: null },
+    { id: uid(), businessName: 'Glow Lash & Brow Bar', ownerName: 'Priya Anand', email: 'priya@glowlashbrow.com', phone: '281-555-0144', password: 'demo123', city: 'Katy, TX', zip: '77494', services: ['Lashes', 'Brows'], instagram: 'https://instagram.com/glowlashbrowbar', profilePhoto: '', description: 'Classic and hybrid lash sets, brow lamination and tinting.', portfolio: [], profileViews: 165, offerViews: 61, portfolioViews: 28, instagramClicks: 22, confirmedBookings: 0, createdAt: Date.now() - 20 * 86400000, deal: null },
+    { id: uid(), businessName: 'Katy Nail Bar', ownerName: 'Linh Tran', email: 'linh@katynailbar.com', phone: '281-555-0155', password: 'demo123', city: 'Katy, TX', zip: '77450', services: ['Nails'], instagram: 'https://instagram.com/katynailbar', profilePhoto: '', description: 'Gel, dip, and nail art. We post openings the same day they come up.', portfolio: [], profileViews: 188, offerViews: 70, portfolioViews: 19, instagramClicks: 35, confirmedBookings: 0, createdAt: Date.now() - 15 * 86400000, deal: null },
+    { id: uid(), businessName: 'Serenity Skin & Wax', ownerName: 'Alexandra Reyes', email: 'alex@serenityskin.com', phone: '713-555-0166', password: 'demo123', city: 'Houston, TX', zip: '77024', services: ['Skincare', 'Waxing'], instagram: 'https://instagram.com/serenityskinwax', profilePhoto: '', description: 'Facials, brow/lip waxing, and full-body waxing in a calm, private studio.', portfolio: [], profileViews: 91, offerViews: 29, portfolioViews: 14, instagramClicks: 11, confirmedBookings: 0, createdAt: Date.now() - 25 * 86400000, deal: null },
+    { id: uid(), businessName: 'Luxe Wigs & Extensions', ownerName: 'Simone Baptiste', email: 'simone@luxewigs.com', phone: '281-555-0177', password: 'demo123', city: 'Katy, TX', zip: '77494', services: ['Wigs & Extensions'], instagram: 'https://instagram.com/luxewigsandext', profilePhoto: '', description: 'Custom wig units, installs, and extension services.', portfolio: [], profileViews: 133, offerViews: 47, portfolioViews: 22, instagramClicks: 18, confirmedBookings: 0, createdAt: Date.now() - 40 * 86400000, deal: null },
+    { id: uid(), businessName: 'Glam Studio Makeup', ownerName: 'Jasmine Lee', email: 'jasmine@glamstudiomu.com', phone: '713-555-0188', password: 'demo123', city: 'Houston, TX', zip: '77007', services: ['Makeup'], instagram: 'https://instagram.com/glamstudiomakeup', profilePhoto: '', description: 'Full glam, soft glam, and bridal trials. Last-minute event openings posted often.', portfolio: [], profileViews: 176, offerViews: 64, portfolioViews: 30, instagramClicks: 24, confirmedBookings: 0, createdAt: Date.now() - 10 * 86400000, deal: null },
+    { id: uid(), businessName: 'Style Society Beauty', ownerName: 'Renee Castillo', email: 'renee@stylesociety.com', phone: '281-555-0199', password: 'demo123', city: 'Katy, TX', zip: '77493', services: ['Other Beauty Services', 'Haircut'], instagram: 'https://instagram.com/stylesocietybeauty', profilePhoto: '', description: 'Blowouts, hair treatments, and add-on beauty services for any occasion.', portfolio: [], profileViews: 74, offerViews: 21, portfolioViews: 9, instagramClicks: 8, confirmedBookings: 0, createdAt: Date.now() - 5 * 86400000, deal: null },
+  ];
+  const [p1, p2, p3, p4, p5, p6, p7, p8, p9] = providers;
+  const weekend = nextWeekendDates();
+
+  const openings = [
+    { id: uid(), providerId: p1.id, status: 'active', service: 'Silk Press', date: todayStr(0), time: '14:00', price: 65, duration: '60 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p1.id, status: 'active', service: 'Haircut', date: todayStr(1), time: '10:30', price: 85, duration: '90 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p2.id, status: 'active', service: 'Barber', date: todayStr(0), time: '16:30', price: 35, duration: '30 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p2.id, status: 'active', service: 'Barber', date: todayStr(1), time: '09:00', price: 35, duration: '30 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p3.id, status: 'active', service: 'Braids', date: weekend[0], time: '11:00', price: 150, duration: '180 min', location: 'Houston, TX' },
+    { id: uid(), providerId: p3.id, status: 'active', service: 'Locs', date: todayStr(1), time: '13:00', price: 90, duration: '90 min', location: 'Houston, TX' },
+    { id: uid(), providerId: p4.id, status: 'active', service: 'Lashes', date: todayStr(0), time: '12:00', price: 80, duration: '75 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p4.id, status: 'active', service: 'Brows', date: todayStr(0), time: '17:00', price: 40, duration: '30 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p5.id, status: 'active', service: 'Nails', date: todayStr(0), time: '15:00', price: 55, duration: '60 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p5.id, status: 'active', service: 'Nails', date: weekend[1], time: '10:00', price: 55, duration: '60 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p6.id, status: 'active', service: 'Skincare', date: todayStr(1), time: '11:30', price: 95, duration: '60 min', location: 'Houston, TX' },
+    { id: uid(), providerId: p6.id, status: 'active', service: 'Waxing', date: todayStr(2), time: '14:30', price: 45, duration: '30 min', location: 'Houston, TX' },
+    { id: uid(), providerId: p7.id, status: 'active', service: 'Wigs & Extensions', date: weekend[0], time: '12:30', price: 220, duration: '150 min', location: 'Katy, TX' },
+    { id: uid(), providerId: p8.id, status: 'active', service: 'Makeup', date: todayStr(0), time: '18:00', price: 100, duration: '60 min', location: 'Houston, TX' },
+    { id: uid(), providerId: p8.id, status: 'active', service: 'Makeup', date: todayStr(1), time: '16:00', price: 100, duration: '60 min', location: 'Houston, TX' },
+    { id: uid(), providerId: p9.id, status: 'active', service: 'Other Beauty Services', date: todayStr(1), time: '13:30', price: 60, duration: '45 min', location: 'Katy, TX' },
+  ];
+
+  // A few vendors currently have an active last-minute deal, mixing general and
+  // date/time-specific scope so both deal types are represented in the demo.
+  p1.deal = { id: uid(), title: '$15 Off Silk Press Today', service: 'Silk Press', originalPrice: 65, dealPrice: 50, discountPercent: '', description: 'Booked out slot just opened up \u2014 first to claim it gets the discount.', expiresAt: todayStr(0) + 'T21:00', scope: 'specific', specificDate: todayStr(0), specificTime: '14:00', image: '', createdAt: Date.now() - 3600000 };
+  p3.deal = { id: uid(), title: '20% Off Any Braid Style', service: 'Braids', originalPrice: 150, dealPrice: 120, discountPercent: 20, description: 'Valid on any last-minute braid booking this week.', expiresAt: weekend[1] + 'T20:00', scope: 'general', specificDate: '', specificTime: '', image: '', createdAt: Date.now() - 7200000 };
+  p5.deal = { id: uid(), title: 'Gel Mani + Pedi Combo Deal', service: 'Nails', originalPrice: 90, dealPrice: 70, discountPercent: '', description: 'Book the combo before it fills up.', expiresAt: todayStr(2) + 'T19:00', scope: 'general', specificDate: '', specificTime: '', image: '', createdAt: Date.now() - 1800000 };
+  p8.deal = { id: uid(), title: 'Last-Minute Glam Slot', service: 'Makeup', originalPrice: 100, dealPrice: 80, discountPercent: '', description: 'Opening from a reschedule \u2014 today only.', expiresAt: todayStr(0) + 'T23:00', scope: 'specific', specificDate: todayStr(0), specificTime: '18:00', image: '', createdAt: Date.now() - 5400000 };
+
+  const reviews = [
+    { id: uid(), providerId: p1.id, rating: 5, name: 'Courtney H.', comment: 'Best silk press in Katy, hands down. Lasted two full weeks.', createdAt: Date.now() - 4 * 86400000 },
+    { id: uid(), providerId: p1.id, rating: 5, name: 'Danielle P.', comment: 'Squeezed me in last minute and I still left looking amazing.', createdAt: Date.now() - 9 * 86400000 },
+    { id: uid(), providerId: p2.id, rating: 5, name: 'Marcus T.', comment: 'Cleanest fade I\u2019ve had in Houston. Booked a same-day slot through the app.', createdAt: Date.now() - 2 * 86400000 },
+    { id: uid(), providerId: p3.id, rating: 5, name: 'Amara O.', comment: 'Knotless braids came out perfect, worth every penny.', createdAt: Date.now() - 6 * 86400000 },
+    { id: uid(), providerId: p3.id, rating: 4, name: 'Keisha B.', comment: 'Great work, ran a little behind schedule but result was worth it.', createdAt: Date.now() - 12 * 86400000 },
+    { id: uid(), providerId: p4.id, rating: 5, name: 'Olivia S.', comment: 'Lashes are so natural looking, exactly what I asked for.', createdAt: Date.now() - 3 * 86400000 },
+    { id: uid(), providerId: p5.id, rating: 4, name: 'Rachel M.', comment: 'Cute nail art and fast service for a walk-in opening.', createdAt: Date.now() - 8 * 86400000 },
+    { id: uid(), providerId: p8.id, rating: 5, name: 'Sydney K.', comment: 'Did my makeup for a shoot with only a few hours notice \u2014 flawless.', createdAt: Date.now() - 1 * 86400000 },
+  ];
+
+  return { providers: providers, openings: openings, requests: [], events: [], reviews: reviews };
+}
+
+// Firestore doc -> plain object, keeping the same `id` field shape the
+// rest of the app already expects (it used to be a client-generated uid()).
+function docToObj(doc) {
+  const data = doc.data();
+  return Object.assign({ id: doc.id }, data);
+}
+
+async function loadData() {
+  const empty = { providers: [], openings: [], requests: [], events: [], reviews: [], waitlist: [] };
+  try {
+    const [providersSnap, openingsSnap, reviewsSnap] = await Promise.all([
+      db.collection('providers').get(),
+      db.collection('openings').get(),
+      db.collection('reviews').get(),
+    ]);
+    empty.providers = providersSnap.docs.map(docToObj).map(function (p) {
+      if (!p.portfolio) p.portfolio = [];
+      if (p.profileViews === undefined) p.profileViews = 0;
+      if (p.offerViews === undefined) p.offerViews = 0;
+      if (p.portfolioViews === undefined) p.portfolioViews = 0;
+      if (p.instagramClicks === undefined) p.instagramClicks = 0;
+      if (p.websiteClicks === undefined) p.websiteClicks = 0;
+      if (p.confirmedBookings === undefined) p.confirmedBookings = 0;
+      if (p.featured === undefined) p.featured = false;
+      if (p.website === undefined) p.website = '';
+      if (p.preferredBooking === undefined) p.preferredBooking = 'instagram';
+      if (p.profilePhoto === undefined) p.profilePhoto = '';
+      if (p.deal === undefined) p.deal = null;
+      if (p.pro === undefined) p.pro = false;
+      return p;
+    });
+    empty.openings = openingsSnap.docs.map(docToObj).map(function (o) {
+      if (o.clicks === undefined) o.clicks = 0;
+      if (o.smsSent === undefined) o.smsSent = false;
+      return o;
+    });
+    empty.reviews = reviewsSnap.docs.map(docToObj);
+  } catch (e) {
+    console.error('Failed to load data from Firestore:', e);
+    flash('Could not reach the database \u2014 check your connection.');
+  }
+  // NOTE: /events has "allow read: if false" in the security rules (write-only,
+  // no public read) so it can never be fetched here \u2014 the admin metrics
+  // tab will show zero counts unless that rule is loosened. See deployment notes.
+  return empty;
+}
+// Data is no longer held as one shared blob \u2014 every mutation below writes
+// straight to its own Firestore document/collection, so there's nothing left
+// for a generic "save everything" pass to do. persist() and saveData() are
+// kept as harmless no-ops so any leftover call site doesn't throw.
+async function saveData() {}
+function persist() {}
+
+/* ---------------------------- state ---------------------------- */
+
+const S = {
+  data: null,
+  view: 'home',
+  search: { service: null, when: null, time: 'Any time', place: '', budget: '' },
+  sort: 'soonest',
+  activeOpeningId: null,
+  requestForm: { name: '', phone: '', email: '', message: '' },
+  session: null,
+  providerForm: null,
+  loginForm: { email: '', password: '', error: '' },
+  signupForm: { businessName: '', ownerName: '', email: '', phone: '', password: '', city: '', zip: '', services: [], instagram: '', website: '', preferredBooking: 'instagram', profilePhoto: '', profilePhotoBlob: null, description: '', portfolio: [], portfolioBlobs: [], error: '' },
+  openingForm: null,
+  glamr: { step: 'occasion', occasion: null, deadlineDate: todayStr(0), deadlineTime: '18:00', location: '', budget: '', plan: null },
+  activeVendorId: null,
+  activeCategory: null,
+  dealsCategory: null,
+  dealForm: null,
+  reviewForm: { rating: 0, name: '', comment: '' },
+  reviewSubmitted: false,
+  navHistory: [],
+  adminCode: '',
+  adminUnlocked: false,
+  adminData: null,
+  adminError: '',
+  toast: '',
+  searchStarted: false,
+  lightbox: null,
+  lastPostedOpening: null,
+  waitlistJoinForm: { name: '', phone: '', notes: '' },
+  waitlistJoinSubmitted: false,
+  pushedHistoryCount: 0,
+  dashDark: (function () { try { return localStorage.getItem('glamr-dash-dark') === '1'; } catch (e) { return false; } })(),
+  dashAccent: (function () { try { return localStorage.getItem('glamr-dash-accent') || 'rose'; } catch (e) { return 'rose'; } })(),
+  dealsHomeCategory: '',
+};
+
+function logEvent(type) {
+  S.data.events.push({ type: type, ts: Date.now() }); // kept locally only for this session; not readable back from Firestore
+  db.collection('events').add({ type: type, ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(function (e) { console.error('logEvent failed:', e); });
+}
+function flash(msg) {
+  S.toast = msg;
+  render();
+  setTimeout(function () { S.toast = ''; render(); }, 2200);
+}
+function providerById(id) { return S.data.providers.find(function (p) { return p.id === id; }); }
+function activeOpenings() { return S.data.openings.filter(isOpeningLive); }
+function isOpeningExpired(o) {
+  const dt = new Date(o.date + 'T' + o.time);
+  if (isNaN(dt.getTime())) return false;
+  return dt.getTime() <= Date.now();
+}
+function isOpeningLive(o) { return o.status === 'active' && !isOpeningExpired(o); }
+function instagramUrl(handle) {
+  if (!handle) return '';
+  const clean = handle.trim().replace(/^@/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/\/+$/, '');
+  return clean ? 'https://instagram.com/' + clean : '';
+}
+function websiteUrl(site) {
+  if (!site) return '';
+  const trimmed = site.trim();
+  if (!trimmed) return '';
+  return /^https?:\/\//i.test(trimmed) ? trimmed : 'https://' + trimmed;
+}
+// Picks which link a customer actually taps to book: honors the vendor's
+// stated preference, but falls back to whichever link they've actually
+// filled in if their preferred one is missing (e.g. picked "Website" at
+// signup but never added one) \u2014 a customer should never hit a dead end.
+function bookingLinkFor(provider) {
+  if (!provider) return null;
+  const ig = instagramUrl(provider.instagram);
+  const site = websiteUrl(provider.website);
+  const prefersWebsite = provider.preferredBooking === 'website';
+  if (prefersWebsite && site) return { url: site, label: 'Website', method: 'website' };
+  if (!prefersWebsite && ig) return { url: ig, label: 'Instagram', method: 'instagram' };
+  if (site) return { url: site, label: 'Website', method: 'website' };
+  if (ig) return { url: ig, label: 'Instagram', method: 'instagram' };
+  return null;
+}
+
+function locationTokens(str) {
+  return (str || '').toLowerCase().split(/[\s,]+/).map(function (t) { return t.trim(); }).filter(Boolean);
+}
+function matchesPlace(opening, place) {
+  if (!place || !place.trim()) return true;
+  const queryTokens = locationTokens(place);
+  const locTokens = locationTokens(opening.location);
+  return queryTokens.some(function (qt) {
+    return locTokens.some(function (lt) { return lt.indexOf(qt) !== -1 || qt.indexOf(lt) !== -1; });
+  });
+}
+function matchesTimePref(time, pref) {
+  if (!pref || pref === 'Any time') return true;
+  return timeBucket(time) === pref;
+}
+function matchesBudget(price, budget) {
+  if (!budget) return true;
+  const b = Number(budget);
+  if (!b || isNaN(b)) return true;
+  return price <= b;
+}
+
+function runSearch() {
+  const s = S.search;
+  const relaxed = [];
+  const active = { service: s.service, when: s.when, time: (s.time && s.time !== 'Any time') ? s.time : null };
+  function apply() {
+    return activeOpenings()
+      .filter(function (o) { return !active.service || o.service === active.service; })
+      .filter(function (o) { return !active.when || matchesWhen(o.date, active.when); })
+      .filter(function (o) { return !active.time || matchesTimePref(o.time, active.time); });
+  }
+  let rows = apply();
+  // Thin vendor supply means a fully-specified search can easily land on zero
+  // results even though something close exists. Rather than dead-end, drop
+  // the least-essential filter first and try again — time of day, then day,
+  // then (as a last resort) service — and tell the customer what was relaxed
+  // so it reads as "here's what's close," not a silent bait-and-switch.
+  if (rows.length === 0 && active.time) { relaxed.push('time of day'); active.time = null; rows = apply(); }
+  if (rows.length === 0 && active.when) { relaxed.push(s.when); active.when = null; rows = apply(); }
+  if (rows.length === 0 && active.service) { relaxed.push(s.service); active.service = null; rows = apply(); }
+  // Location and budget are soft preferences, not hard filters: a customer
+  // willing to drive or stretch their budget a little shouldn't have a vendor
+  // disappear entirely just because the typed location text or price ceiling
+  // doesn't exactly match. Matching openings sort first; everything else
+  // still shows, just further down (see viewResults for the section break).
+  rows.forEach(function (o) {
+    o._placeMatch = matchesPlace(o, s.place);
+    o._budgetMatch = matchesBudget(o.price, s.budget);
+  });
+  const bySelectedOrder = S.sort === 'price'
+    ? function (a, b) { return a.price - b.price; }
+    : function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); };
+  rows.sort(function (a, b) {
+    if (a._placeMatch !== b._placeMatch) return a._placeMatch ? -1 : 1;
+    if (a._budgetMatch !== b._budgetMatch) return a._budgetMatch ? -1 : 1;
+    return bySelectedOrder(a, b);
+  });
+  return { rows: rows, relaxed: relaxed };
+}
+
+function buildGlamrPlan() {
+  const g = S.glamr;
+  const services = OCCASION_SERVICES[g.occasion] || ['Haircut', 'Makeup'];
+  const deadlineKey = g.deadlineDate + g.deadlineTime;
+  const budget = g.budget ? Number(g.budget) : null;
+  // Location is a soft preference here too: a customer willing to drive
+  // shouldn't have a vendor excluded from the plan just because the typed
+  // location text doesn't literally match. Openings that match location sort
+  // first (and get picked first within budget); everything else is still a
+  // valid candidate rather than being dropped from the pool entirely.
+  const pool = activeOpenings();
+  const plan = [];
+  let total = 0;
+  services.forEach(function (service) {
+    const candidates = pool
+      .filter(function (o) { return o.service === service; })
+      .filter(function (o) { return (o.date + o.time) <= deadlineKey; })
+      .sort(function (a, b) {
+        const aMatch = matchesPlace(a, g.location), bMatch = matchesPlace(b, g.location);
+        if (aMatch !== bMatch) return aMatch ? -1 : 1;
+        return (a.date + a.time).localeCompare(b.date + b.time);
+      });
+    let pick = null;
+    if (budget) pick = candidates.find(function (o) { return total + o.price <= budget; }) || null;
+    if (!pick) pick = candidates[0] || null;
+    if (pick) { plan.push(pick); total += pick.price; }
+  });
+  plan.sort(function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); });
+  const covered = plan.map(function (p) { return p.service; });
+  const unmet = services.filter(function (s) { return covered.indexOf(s) === -1; });
+  g.plan = { services: services, plan: plan, total: total, unmet: unmet };
+  logEvent('glamr_me_plan_built');
+}
+
+/* ---------------------------- render ---------------------------- */
+
+function applyDashTheme() {
+  const onDash = S.view === 'providerDashboard';
+  document.body.classList.toggle('g-dash-dark', onDash && S.dashDark);
+  if (onDash) {
+    const preset = DASH_ACCENTS.find(function (a) { return a.key === S.dashAccent; }) || DASH_ACCENTS[0];
+    document.body.style.setProperty('--accent', preset.accent);
+    document.body.style.setProperty('--accent-dark', preset.dark);
+  } else {
+    document.body.style.removeProperty('--accent');
+    document.body.style.removeProperty('--accent-dark');
+  }
+}
+
+function render() {
+  const app = document.getElementById('app');
+  if (!S.data) {
+    app.innerHTML = '<div class="g-loading"><div class="g-spinner"></div></div>';
+    return;
+  }
+  let body = '';
+  if (S.view === 'home') body = viewHome();
+  else if (S.view === 'results') body = viewResults();
+  else if (S.view === 'request') body = viewRequest();
+  else if (S.view === 'thanks') body = viewThanks();
+  else if (S.view === 'glamrme' && GLAMR_ME_ENABLED) body = viewGlamrMe();
+  else if (S.view === 'deals') body = viewDeals();
+  else if (S.view === 'category') body = viewCategory();
+  else if (S.view === 'directory') body = viewDirectory();
+  else if (S.view === 'vendorProfile') body = viewVendorProfile();
+  else if (S.view === 'review') body = viewReview();
+  else if (S.view === 'waitlistJoin') body = viewWaitlistJoin();
+  else if (S.view === 'providerSignup') body = viewProviderSignup();
+  else if (S.view === 'providerOnboarding') body = viewProviderOnboarding();
+  else if (S.view === 'providerLogin') body = viewProviderLogin();
+  else if (S.view === 'providerDashboard') body = viewProviderDashboard();
+  else if (S.view === 'openingSuccess') body = viewOpeningSuccess();
+  else if (S.view === 'dealSuccess') body = viewDealSuccess();
+  else if (S.view === 'confirmBooking') body = viewConfirmBooking();
+  else if (S.view === 'admin') body = viewAdmin();
+
+  if (!body) { S.view = 'home'; body = viewHome(); } // safety net: unknown or disabled (e.g. paused Phase 2) view falls back home
+
+  const showFooter = S.view !== 'admin';
+  app.innerHTML =
+    header() +
+    body +
+    (showFooter ? footer() : '') +
+    (S.toast ? '<div class="g-toast">' + esc(S.toast) + '</div>' : '') +
+    (S.lightbox ? lightbox() : '');
+
+  focusFirstMarked();
+  applyDashTheme();
+}
+
+function focusFirstMarked() {
+  const el = document.querySelector('[data-autofocus]');
+  if (el && document.activeElement !== el) {
+    // no-op: avoid stealing focus on every render; reserved for future use
+  }
+}
+
+function header() {
+  return (
+    '<div class="g-header">' +
+      '<button class="g-logo" data-action="go-home"><span class="g-logo-mark">✨</span> GLAMR</button>' +
+      '<div style="display:flex;gap:8px;align-items:center;">' +
+        '<button class="g-linklike g-header-deals" data-action="go-deals">🔥 Deals</button>' +
+        '<button class="g-btn-ghost g-header-cta" data-action="go-provider-entry">I\'m a Pro</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+function footer() {
+  return '';
+}
+
+function lightbox() {
+  return (
+    '<div class="g-lightbox" data-action="close-lightbox">' +
+      '<button type="button" class="g-lightbox-close" data-action="close-lightbox" aria-label="Close">\u2715</button>' +
+      '<img src="' + esc(S.lightbox.url) + '" alt="' + esc(S.lightbox.alt) + '" onclick="event.stopPropagation();">' +
+    '</div>'
+  );
+}
+
+function chip(label, active, action, value) {
+  return '<button type="button" class="g-chip' + (active ? ' active' : '') + '" data-action="' + action + '" data-value="' + esc(value) + '">' + label + '</button>';
+}
+
+/* Reads an image file, downsizes it to fit within maxDim x maxDim, and
+   returns a compressed JPEG data URL via callback(dataURL). Keeps images
+   small enough to live in localStorage without hitting quota limits. */
+function fileToCompressedDataURL(file, maxDim, quality, callback) {
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const img = new Image();
+    img.onload = function () {
+      let w = img.width, h = img.height;
+      if (w > maxDim || h > maxDim) {
+        if (w >= h) { h = Math.round(h * (maxDim / w)); w = maxDim; }
+        else { w = Math.round(w * (maxDim / h)); h = maxDim; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      const dataURL = canvas.toDataURL('image/jpeg', quality);
+      canvas.toBlob(function (blob) { callback(dataURL, blob); }, 'image/jpeg', quality);
+    };
+    img.onerror = function () { flash('Could not read that image \u2014 try a different file.'); };
+    img.src = e.target.result;
+  };
+  reader.onerror = function () { flash('Could not read that file \u2014 try again.'); };
+  reader.readAsDataURL(file);
+}
+
+// Uploads a compressed image Blob to Cloud Storage under /providers/{uid}/...,
+// matching the Storage security rules (public read, owner-only write, 5MB cap,
+// image/* only), and resolves with its public download URL.
+function uploadProviderImage(uid, blob, path) {
+  return storage.ref('providers/' + uid + '/' + path).put(blob, { contentType: 'image/jpeg' })
+    .then(function (snapshot) { return snapshot.ref.getDownloadURL(); });
+}
+// Best-effort delete of a previously uploaded Storage image, given its
+// download URL. Failures are swallowed \u2014 a missing/already-deleted file
+// shouldn't block removing it from the portfolio array.
+function deleteProviderImageByURL(url) {
+  if (!url || url.indexOf('firebasestorage') === -1) return Promise.resolve();
+  return storage.refFromURL(url).delete().catch(function () {});
+}
+
+function portfolioEditor(photos, fileTarget, removeAction) {
+  const inputId = 'portfolio-file-' + fileTarget;
+  return (
+    (photos.length
+      ? '<div class="g-gallery">' + photos.map(function (url, i) {
+          return '<div class="g-gallery-item"><img src="' + esc(url) + '" alt="Portfolio photo">' +
+            '<button type="button" class="g-gallery-remove" data-action="' + removeAction + '" data-value="' + i + '">\u2715</button></div>';
+        }).join('') + '</div>'
+      : '<p class="g-gallery-empty">No photos added yet \u2014 add a few so customers can see your work before they book.</p>') +
+    '<div class="g-gallery-add-row">' +
+      '<input type="file" accept="image/*" multiple id="' + inputId + '" data-file-portfolio="' + fileTarget + '" style="display:none;">' +
+      '<button type="button" class="g-btn-ghost g-btn-small" onclick="document.getElementById(\'' + inputId + '\').click()">\ud83d\udcf7 Upload Photos</button>' +
+    '</div>'
+  );
+}
+
+function viewHome() {
+  const s = S.search;
+  const todaysOpenCount = activeOpenings().filter(function (o) { return o.date === todayStr(0); }).length;
+  // render() re-runs on every keystroke (search fields use data-bind + live
+  // re-render), which would otherwise replay this entrance animation on
+  // every character typed. Only animate the very first time the home page
+  // is shown per session, then leave it settled.
+  const heroAnim = S.heroAnimated ? '' : ' g-fade-in';
+  S.heroAnimated = true;
+  return (
+    '<div class="g-page">' +
+      '<section class="g-hero">' +
+        '<div class="g-kicker' + heroAnim + '">✨ The same-day beauty marketplace</div>' +
+        '<h1 class="g-h1' + heroAnim + '">Didn\u2019t plan ahead?<br><span class="g-accent-text">You\u2019re still booked.</span></h1>' +
+        '<p class="g-sub' + heroAnim + '">GLAMR shows real, open appointments for hair, nails, lashes, makeup &amp; more \u2014 happening today, near you. No weeks-out waitlists. No guessing who\u2019s free.</p>' +
+        (todaysOpenCount > 0
+          ? '<div class="g-live-stat' + heroAnim + '"><span class="g-live-dot"></span>' + todaysOpenCount + ' real opening' + (todaysOpenCount === 1 ? '' : 's') + ' today near Houston &amp; Katy</div>'
+          : '<p class="g-service-area' + heroAnim + '">\ud83d\udccd Serving Houston, Katy &amp; surrounding areas</p>') +
+      '</section>' +
+
+      '<section class="g-search-card">' +
+        '<div class="g-field"><label>What do you need?</label><div class="g-chips">' +
+          SERVICES.map(function (svc) { return chip(SERVICE_EMOJI[svc] + ' ' + svc, s.service === svc, 'set-service', svc); }).join('') +
+        '</div></div>' +
+
+        '<div class="g-field"><label>When?</label><div class="g-chips">' +
+          WHEN_OPTIONS.map(function (w) { return chip(w, s.when === w, 'set-when', w); }).join('') +
+        '</div></div>' +
+
+        '<div class="g-two-col">' +
+          '<div class="g-field"><label>Time of day</label>' +
+            '<select class="g-select g-block" data-bind="search.time">' +
+              TIME_OPTIONS.map(function (t) { return '<option value="' + t + '"' + (s.time === t ? ' selected' : '') + '>' + t + '</option>'; }).join('') +
+            '</select>' +
+          '</div>' +
+          '<div class="g-field"><label>Max budget</label>' +
+            '<input class="g-input" data-bind="search.budget" type="number" placeholder="$ any" value="' + esc(s.budget) + '">' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="g-field"><label>Where?</label>' +
+          '<input class="g-input" data-bind="search.place" placeholder="ZIP code or city (e.g. Katy, Sugar Land, Houston)" value="' + esc(s.place) + '">' +
+        '</div>' +
+
+        '<button class="g-btn-accent g-btn-block" data-action="do-search">Show Me Who\u2019s Available</button>' +
+      '</section>' +
+
+      (GLAMR_ME_ENABLED
+        ? '<div class="g-glamr-me">' +
+            '<div>' +
+              '<div class="g-eyebrow" style="margin-bottom:2px;">Not sure what you need?</div>' +
+              '<strong style="font-family:\'Fraunces\',serif;font-size:15px;">Try GLAMR ME</strong>' +
+              '<p>Tell us the occasion — we\u2019ll build a get-ready plan from real openings.</p>' +
+            '</div>' +
+            '<button class="g-btn-ghost g-btn-small" data-action="go-glamrme">GLAMR ME</button>' +
+          '</div>'
+        : '') +
+
+      (function () {
+        const deals = activeDeals();
+        if (!deals.length) return '';
+        const activeCat = S.dealsHomeCategory;
+        const dealCats = SERVICES.filter(function (c) { return deals.some(function (e) { return e.deal.service === c; }); });
+        const shown = deals.filter(function (e) { return !activeCat || e.deal.service === activeCat; });
+        return '<section class="g-asap' + heroAnim + '" style="margin-top:24px;">' +
+          '<h3 class="g-eyebrow">\u26a1 Hot Deals</h3>' +
+          '<div class="g-feature-chips">' +
+            chip('All', !activeCat, 'set-deals-home-category', '') +
+            dealCats.map(function (c) { return chip(SERVICE_EMOJI[c] + ' ' + c, activeCat === c, 'set-deals-home-category', c); }).join('') +
+          '</div>' +
+          (shown.length === 0
+            ? '<p class="g-hint">No ' + esc(activeCat) + ' deals right now \u2014 check back soon.</p>'
+            : '<div class="g-carousel">' + shown.map(hotDealCard).join('') + '</div>') +
+          '<button class="g-linklike" style="margin-top:10px;" data-action="go-deals">See all deals \u2192</button>' +
+        '</section>';
+      })() +
+
+      (function () {
+        const anyFeatured = S.data.providers.some(function (p) { return p.featured; });
+        if (!anyFeatured) return '';
+        // Deliberately no category filter here — Featured Pros is a fixed,
+        // rotating spotlight (5, weekly), not a search tool. "Browse by
+        // category" below is where someone filters by service; giving this
+        // section its own filter too would just duplicate that with a
+        // smaller, more confusing result set.
+        const featured = featuredPros();
+        return '<section class="g-asap' + heroAnim + '" style="margin-top:24px;">' +
+          '<h3 class="g-eyebrow">\u2728 Featured Pros</h3>' +
+          '<div class="g-carousel">' + featured.map(function (p) {
+            const avg = avgRating(p.id);
+            const igUrl = instagramUrl(p.instagram);
+            return '<div class="g-feature-card">' +
+              (p.profilePhoto ? '<div class="g-avatar-preview" style="width:100%;height:110px;border-radius:12px;"><img src="' + esc(p.profilePhoto) + '" alt="' + esc(p.businessName) + '" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div>' : '') +
+              '<button type="button" class="g-linklike" style="font-weight:600;color:var(--ink);text-decoration:none;text-align:left;" data-action="go-vendor" data-value="' + p.id + '">' + esc(p.businessName) + '</button>' +
+              (avg ? '<div class="g-mono" style="color:var(--gold);font-size:12.5px;">' + starString(avg) + ' ' + avg + '</div>' : '<div class="g-hint">' + esc(p.city) + '</div>') +
+              '<div class="g-chips">' + p.services.slice(0, 2).map(function (s) { return '<span class="g-badge">' + SERVICE_EMOJI[s] + ' ' + s + '</span>'; }).join('') + '</div>' +
+              '<button type="button" class="g-btn-accent g-btn-small g-btn-block" data-action="go-vendor" data-value="' + p.id + '">View Profile</button>' +
+              (igUrl ? '<a class="g-btn-ghost g-btn-small g-btn-block" style="text-decoration:none;text-align:center;" href="' + esc(igUrl) + '" target="_blank" rel="noopener" data-action="featured-instagram-click" data-value="' + p.id + '">Instagram</a>' : '') +
+            '</div>';
+          }).join('') + '</div>' +
+        '</section>';
+      })() +
+
+      '<section class="g-asap" style="margin-top:30px;">' +
+        '<h3 class="g-eyebrow">Browse by category</h3>' +
+        '<div class="g-cat-grid">' +
+          SERVICES.map(function (svc) {
+            const hasDeal = activeDeals().some(function (e) { return e.deal.service === svc; });
+            return '<button type="button" class="g-cat-tile" style="position:relative;" data-action="go-category" data-value="' + esc(svc) + '">' +
+              (hasDeal ? '<span class="g-deal-dot" title="Deal available">\u26a1</span>' : '') +
+              '<span class="g-cat-emoji">' + SERVICE_EMOJI[svc] + '</span><span>' + esc(svc) + '</span></button>';
+          }).join('') +
+        '</div>' +
+        '<button class="g-linklike" style="margin-top:10px;" data-action="go-directory">Or browse everyone \u2192</button>' +
+      '</section>' +
+
+      '<section class="g-asap">' +
+        '<h3 class="g-eyebrow">Need it ASAP?</h3>' +
+        '<div class="g-asap-grid">' +
+          '<div class="g-asap-card"><div class="g-asap-tag">Today</div><p>See who has an opening right now.</p></div>' +
+          '<div class="g-asap-card"><div class="g-asap-tag">Tomorrow</div><p>Plan your look without the long wait.</p></div>' +
+          '<div class="g-asap-card"><div class="g-asap-tag">Real openings only</div><p>Every listing here is an actual available slot — not a profile that might reply.</p></div>' +
+        '</div>' +
+      '</section>' +
+
+      '<section class="g-pro-cta">' +
+        '<div>' +
+          '<div class="g-eyebrow">Beauty professional?</div>' +
+          '<p>Stop losing money on empty slots — post your opening and get discovered by people searching right now.</p>' +
+        '</div>' +
+        '<button class="g-btn-ghost" data-action="go-provider-signup">Post Your Availability</button>' +
+      '</section>' +
+    '</div>'
+  );
+}
+
+function ticketCard(o, badgeText) {
+  const provider = providerById(o.providerId);
+  const isToday = o.date === todayStr(0);
+  const deal = provider && provider.deal && dealAppliesToOpening(provider.deal, o) ? provider.deal : null;
+  return (
+    '<div class="g-ticket">' +
+      '<div class="g-ticket-main">' +
+        '<div class="g-ticket-emoji">' + (SERVICE_EMOJI[o.service] || '🌸') + '</div>' +
+        '<div class="g-ticket-info">' +
+          (deal ? '<div class="g-deal-flag">\u26a1 Last-Minute Deal</div>' : '') +
+          (badgeText ? '<div class="g-hint" style="margin-bottom:2px;">' + esc(badgeText) + '</div>' : '') +
+          '<div class="g-ticket-service">' + esc(o.service) + '</div>' +
+          (provider
+            ? '<button type="button" class="g-ticket-biz g-ticket-biz-link" data-action="go-vendor" data-value="' + provider.id + '">' + esc(provider.businessName) + '</button>'
+            : '<div class="g-ticket-biz">Independent Pro</div>') +
+          '<div class="g-ticket-when">' +
+            '<span class="' + (isToday ? 'g-badge-today' : 'g-badge') + '">' + fmtDate(o.date) + '</span>' +
+            '<span class="g-dot">\u2022</span>' +
+            '<span class="g-mono">' + fmtTime(o.time) + '</span>' +
+          '</div>' +
+          '<div class="g-ticket-loc">' + esc(o.location) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="g-ticket-stub">' +
+        (deal
+          ? '<div class="g-deal-price-old g-mono">$' + o.price + '</div><div class="g-ticket-price g-mono">$' + Number(deal.dealPrice) + '</div>'
+          : '<div class="g-ticket-price g-mono">$' + o.price + '</div>') +
+        (o.duration ? '<div class="g-ticket-duration">' + esc(o.duration) + '</div>' : '') +
+        '<button class="g-btn-accent g-btn-small" data-action="view-opening" data-value="' + o.id + '">Book</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+// Small "why is this here" label for a soft-matched result — "Other area" if
+// the location didn't match, "$X over budget" if the price is above what was
+// typed. Blank when a row matches everything asked for (the common case).
+function softMatchBadge(o, s) {
+  const parts = [];
+  if (s.place && s.place.trim() && !o._placeMatch) parts.push('Other area');
+  if (s.budget && !o._budgetMatch) {
+    const over = Math.round(o.price - Number(s.budget));
+    if (over > 0) parts.push('$' + over + ' over budget');
+  }
+  return parts.join(' \u00b7 ');
+}
+
+function viewResults() {
+  const result = runSearch();
+  const rows = result.rows;
+  const relaxed = result.relaxed;
+  const s = S.search;
+  const labelParts = [s.service, s.when, s.time !== 'Any time' ? s.time : null, s.place].filter(Boolean);
+  const label = labelParts.length ? labelParts.join(' \u00b7 ') : 'All openings';
+  const hasPlace = !!(s.place && s.place.trim());
+  const nearRows = hasPlace ? rows.filter(function (o) { return o._placeMatch; }) : rows;
+  const farRows = hasPlace ? rows.filter(function (o) { return !o._placeMatch; }) : [];
+  return (
+    '<div class="g-page">' +
+      '<div class="g-results-head">' +
+        '<button class="g-linklike" data-action="go-home">&larr; Edit search</button>' +
+        '<div class="g-results-title">' + esc(label) + '</div>' +
+        '<select class="g-select" data-bind="sort">' +
+          '<option value="soonest"' + (S.sort === 'soonest' ? ' selected' : '') + '>Soonest</option>' +
+          '<option value="price"' + (S.sort === 'price' ? ' selected' : '') + '>Lowest price</option>' +
+        '</select>' +
+      '</div>' +
+      (rows.length === 0
+        ? '<div class="g-empty"><div class="g-empty-mark">🔎</div><p>No one\u2019s showing available for that yet. GLAMR currently covers Houston, Katy &amp; surrounding areas — try a different service, day, or nearby city.</p></div>'
+        : (relaxed.length
+            ? '<p class="g-hint" style="margin-bottom:10px;">No exact match for ' + relaxed.map(function (r) { return '"' + esc(r) + '"'; }).join(' + ') + ' \u2014 here\u2019s what\u2019s close:</p>'
+            : '') +
+          (hasPlace && nearRows.length === 0
+            ? '<p class="g-hint" style="margin-bottom:10px;">Nothing matched "' + esc(s.place) + '" exactly \u2014 here\u2019s everyone else available:</p>'
+            : '') +
+          (nearRows.length ? '<div class="g-ticket-list">' + nearRows.map(function (o) { return ticketCard(o, softMatchBadge(o, s)); }).join('') + '</div>' : '') +
+          (farRows.length
+            ? '<h3 class="g-h4 g-section-title">Also available \u2014 other areas</h3>' +
+              '<div class="g-ticket-list">' + farRows.map(function (o) { return ticketCard(o, softMatchBadge(o, s)); }).join('') + '</div>'
+            : '')) +
+    '</div>'
+  );
+}
+
+function viewRequest() {
+  const o = S.data.openings.find(function (x) { return x.id === S.activeOpeningId; });
+  if (!o) return '<div class="g-page g-narrow"><p class="g-hint">Opening not found.</p><button class="g-linklike" data-action="go-home">&larr; Back home</button></div>';
+  const provider = providerById(o.providerId);
+  const deal = provider && provider.deal && dealAppliesToOpening(provider.deal, o) ? provider.deal : null;
+  const booking = bookingLinkFor(provider);
+  const reviews = provider ? reviewsForProvider(provider.id) : [];
+  const avg = provider ? avgRating(provider.id) : 0;
+  return (
+    '<div class="g-page g-narrow">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<div class="g-form-card">' +
+        '<div class="g-eyebrow">Book this slot</div>' +
+        (provider
+          ? '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">' +
+              (provider.profilePhoto ? '<div class="g-avatar-preview" style="width:40px;height:40px;"><img src="' + esc(provider.profilePhoto) + '" alt="' + esc(provider.businessName) + '"></div>' : '') +
+              '<button type="button" class="g-linklike" style="font-family:\'Fraunces\',serif;font-size:16px;color:var(--ink);text-decoration:none;" data-action="go-vendor" data-value="' + provider.id + '">' + esc(provider.businessName) + '</button>' +
+            '</div>'
+          : '') +
+        '<h2 class="g-h3">' + esc(o.service) + ' with ' + esc(provider ? provider.businessName : 'provider') + '</h2>' +
+        (deal ? '<div class="g-deal-flag" style="margin-bottom:6px;">\u26a1 Last-Minute Deal applied \u2014 ' + esc(deal.title) + '</div>' : '') +
+        '<p class="g-summary g-mono">' + fmtDate(o.date) + ' \u00b7 ' + fmtTime(o.time) + ' \u00b7 ' +
+          (deal ? '<span style="text-decoration:line-through;color:var(--muted);">$' + o.price + '</span> $' + Number(deal.dealPrice) : '$' + o.price) +
+        '</p>' +
+        (avg ? '<p class="g-mono" style="color:var(--gold);margin:2px 0 10px;">' + starString(avg) + ' <span style="color:var(--muted);font-family:\'Work Sans\',sans-serif;">' + avg + ' (' + reviews.length + ' review' + (reviews.length === 1 ? '' : 's') + ')</span></p>' : '') +
+        (provider && provider.portfolio && provider.portfolio.length
+          ? '<div class="g-gallery" style="margin-bottom:10px;">' + provider.portfolio.slice(0, 4).map(function (url) {
+              return '<button type="button" class="g-gallery-item g-zoomable" data-action="zoom-photo" data-value="' + provider.id + '" data-url="' + esc(url) + '"><img src="' + esc(url) + '" alt="' + esc(provider.businessName) + ' portfolio photo"></button>';
+            }).join('') + '</div>'
+          : '') +
+        (provider ? '<button type="button" class="g-linklike" style="margin-bottom:10px;" data-action="go-vendor" data-value="' + provider.id + '">See full profile, portfolio &amp; reviews</button>' : '') +
+        (booking
+          ? '<p class="g-hint">GLAMR doesn\u2019t handle booking directly \u2014 ' + esc(provider.businessName) + ' takes appointments through their ' + booking.label + '. Tap below to reach them and lock in this slot.</p>' +
+            '<a class="g-btn-accent g-btn-block" style="text-align:center;text-decoration:none;display:block;" href="' + esc(booking.url) + '" target="_blank" rel="noopener" data-action="book-' + booking.method + '-click" data-value="' + o.id + '">Book via ' + booking.label + '</a>'
+          : '<p class="g-hint">This specialist hasn\u2019t linked Instagram or a website yet. Check their profile for other ways to reach them.</p>' +
+            (provider ? '<button class="g-btn-ghost g-btn-block" data-action="go-vendor" data-value="' + provider.id + '">View Profile</button>' : '')) +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function viewThanks() {
+  return (
+    '<div class="g-page g-narrow g-center">' +
+      '<div class="g-thanks-mark">🎉</div>' +
+      '<h2 class="g-h3">Request sent!</h2>' +
+      '<p>The beauty professional will contact you to confirm your appointment.</p>' +
+      '<button class="g-btn-accent" data-action="go-home">Search again</button>' +
+    '</div>'
+  );
+}
+
+// Standalone, no-login confirmation page for the "Mark as booked" link that
+// gets sent to a vendor after a customer clicks through to Instagram/their
+// website. Deliberately not part of the dashboard \u2014 a vendor should be able
+// to tap this from a text message and be done in one tap.
+function viewConfirmBooking() {
+  const o = S.data.openings.find(function (x) { return x.id === S.activeOpeningId; });
+  if (!o) {
+    return (
+      '<div class="g-page g-narrow g-center">' +
+        '<div class="g-thanks-mark">\ud83e\udd14</div>' +
+        '<h2 class="g-h3">Link not found</h2>' +
+        '<p>This confirmation link doesn\u2019t match an opening \u2014 it may have already been removed.</p>' +
+        '<button class="g-btn-accent" data-action="go-back">Go Back</button>' +
+      '</div>'
+    );
+  }
+  const provider = providerById(o.providerId);
+  const details = esc(o.service) + ' \u2014 ' + fmtDate(o.date) + ' ' + fmtTime(o.time) + (provider ? ' \u00b7 ' + esc(provider.businessName) : '');
+  if (o.status === 'booked') {
+    return (
+      '<div class="g-page g-narrow g-center">' +
+        '<div class="g-thanks-mark">\u2705</div>' +
+        '<h2 class="g-h3">Already marked booked</h2>' +
+        '<p class="g-hint">' + details + '</p>' +
+        '<p>No action needed \u2014 this one\u2019s already handled.</p>' +
+        '<button class="g-btn-accent" data-action="go-back">Go Back</button>' +
+      '</div>'
+    );
+  }
+  if (o.status !== 'active' || isOpeningExpired(o)) {
+    return (
+      '<div class="g-page g-narrow g-center">' +
+        '<div class="g-thanks-mark">\u26a0\ufe0f</div>' +
+        '<h2 class="g-h3">This opening is no longer active</h2>' +
+        '<p class="g-hint">' + details + '</p>' +
+        '<button class="g-btn-accent" data-action="go-back">Go Back</button>' +
+      '</div>'
+    );
+  }
+  return (
+    '<div class="g-page g-narrow g-center">' +
+      '<h2 class="g-h3">Did this turn into a booking?</h2>' +
+      '<p class="g-hint">' + details + '</p>' +
+      '<button class="g-btn-accent g-btn-block" data-action="confirm-booking" data-value="' + o.id + '">Yes \u2014 mark as booked</button>' +
+      '<button class="g-linklike g-center-text" data-action="go-back">Not yet / skip</button>' +
+    '</div>'
+  );
+}
+
+function viewGlamrMe() {
+  const g = S.glamr;
+  if (g.step === 'occasion') {
+    return (
+      '<div class="g-page g-narrow">' +
+        '<button class="g-linklike" data-action="go-home">&larr; Back home</button>' +
+        '<div class="g-form-card">' +
+          '<div class="g-eyebrow">GLAMR ME</div>' +
+          '<h2 class="g-h3">Tell us where you\u2019re going</h2>' +
+          '<p class="g-hint">We\u2019ll suggest services, then match them to real openings that fit before your deadline.</p>' +
+          '<div class="g-chips" style="margin-top:14px;">' +
+            OCCASIONS.map(function (o) { return chip(o, g.occasion === o, 'set-occasion', o); }).join('') +
+          '</div>' +
+          '<label class="g-label">Ready by \u2014 date</label>' +
+          '<input class="g-input" type="date" data-bind="glamr.deadlineDate" value="' + esc(g.deadlineDate) + '">' +
+          '<label class="g-label">Ready by \u2014 time</label>' +
+          '<input class="g-input" type="time" data-bind="glamr.deadlineTime" value="' + esc(g.deadlineTime) + '">' +
+          '<label class="g-label">Where?</label>' +
+          '<input class="g-input" data-bind="glamr.location" placeholder="ZIP code or city" value="' + esc(g.location) + '">' +
+          '<label class="g-label">Budget (optional)</label>' +
+          '<input class="g-input" type="number" data-bind="glamr.budget" placeholder="$ total, any" value="' + esc(g.budget) + '">' +
+          '<button class="g-btn-accent g-btn-block"' + (g.occasion ? '' : ' disabled') + ' data-action="build-glamr-plan">Build My Look</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  const plan = g.plan;
+  const suggested = OCCASION_SERVICES[g.occasion] || [];
+  return (
+    '<div class="g-page g-narrow">' +
+      '<button class="g-linklike" data-action="go-glamrme-edit">&larr; Adjust</button>' +
+      '<div class="g-form-card">' +
+        '<div class="g-eyebrow">' + esc(g.occasion) + ' \u00b7 ready by ' + fmtDate(g.deadlineDate) + ' ' + fmtTime(g.deadlineTime) + '</div>' +
+        '<h2 class="g-h3">Suggested: ' + suggested.join(', ') + '</h2>' +
+        '<p class="g-hint">Matched against real openings near ' + (g.location ? esc(g.location) : 'you') + '.</p>' +
+
+        (plan.plan.length === 0
+          ? '<div class="g-empty"><div class="g-empty-mark">🔎</div><p>No matching openings before that deadline yet. Try widening the location, time, or budget.</p></div>'
+          : plan.plan.map(function (o, i) {
+              return '<div class="g-plan-step"><div class="g-plan-num">' + (i + 1) + '</div><div style="font-weight:600;">' + esc(o.service) + '</div></div>' + ticketCard(o);
+            }).join('')
+        ) +
+
+        (plan.plan.length > 0
+          ? '<div class="g-plan-total"><span>Estimated total</span><span class="g-mono">$' + plan.total + '</span></div>'
+          : '') +
+
+        (plan.unmet.length > 0
+          ? '<div class="g-unmet">No available opening found yet for: ' + plan.unmet.join(', ') + '. Try a wider time window or a different day.</div>'
+          : '') +
+
+        '<button class="g-btn-ghost g-btn-block" style="margin-top:16px;" data-action="go-glamrme-edit">Try Different Details</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function dealCard(entry) {
+  const p = entry.provider, deal = entry.deal;
+  const pct = dealDiscountPercent(deal);
+  const matchingOpening = S.data.openings.find(function (o) { return isOpeningLive(o) && dealAppliesToOpening(deal, o); });
+  return (
+    '<div class="g-form-card" style="margin-bottom:14px;">' +
+      '<div class="g-deal-flag">\u26a1 Last-Minute Deal' + (pct ? ' \u00b7 ' + pct + '% off' : '') + '</div>' +
+      '<h3 class="g-h4" style="margin-top:6px;">' + esc(deal.title) + '</h3>' +
+      '<button type="button" class="g-linklike" data-action="go-vendor" data-value="' + p.id + '">' + esc(p.businessName) + '</button>' +
+      '<p class="g-hint" style="margin-top:8px;">' + esc(deal.description || '') + '</p>' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-top:10px;">' +
+        '<span class="g-deal-price-old g-mono">$' + Number(deal.originalPrice) + '</span>' +
+        '<span class="g-ticket-price g-mono">$' + Number(deal.dealPrice) + '</span>' +
+        '<span class="g-badge">' + esc(deal.service) + '</span>' +
+      '</div>' +
+      '<p class="g-hint" style="margin-top:8px;">' +
+        (deal.scope === 'specific'
+          ? 'Available ' + fmtDate(deal.specificDate) + ' at ' + fmtTime(deal.specificTime) + ' only'
+          : 'General \u2014 applies to this pro\u2019s open ' + esc(deal.service) + ' slots') +
+        ' \u00b7 ' + dealExpiryLabel(deal) +
+      '</p>' +
+      (matchingOpening
+        ? '<button class="g-btn-accent g-btn-block" data-action="view-opening" data-value="' + matchingOpening.id + '">Book with Provider</button>'
+        : '<button class="g-btn-ghost g-btn-block" data-action="go-vendor" data-value="' + p.id + '">See Provider\u2019s Openings</button>') +
+    '</div>'
+  );
+}
+
+// Compact card for the home-page Hot Deals carousel — same underlying data
+// as dealCard, trimmed down to fit the horizontal scroller alongside
+// Featured Pros. Deals never need manual removal: isDealActive() (used by
+// activeDeals() below) checks deal.expiresAt against the current time on
+// every render, so an expired deal just stops appearing on its own.
+function hotDealCard(entry) {
+  const p = entry.provider, deal = entry.deal;
+  const pct = dealDiscountPercent(deal);
+  return (
+    '<div class="g-feature-card">' +
+      '<div class="g-deal-flag">\u26a1' + (pct ? ' ' + pct + '% off' : '') + '</div>' +
+      '<button type="button" class="g-linklike" style="font-weight:600;color:var(--ink);text-decoration:none;text-align:left;" data-action="go-vendor" data-value="' + p.id + '">' + esc(deal.title) + '</button>' +
+      '<div class="g-hint">' + esc(p.businessName) + '</div>' +
+      '<div style="display:flex;align-items:center;gap:8px;">' +
+        '<span class="g-deal-price-old g-mono">$' + Number(deal.originalPrice) + '</span>' +
+        '<span class="g-ticket-price g-mono">$' + Number(deal.dealPrice) + '</span>' +
+      '</div>' +
+      '<div class="g-hint">' + dealExpiryLabel(deal) + '</div>' +
+      '<button type="button" class="g-btn-accent g-btn-small g-btn-block" data-action="go-vendor" data-value="' + p.id + '">View Deal</button>' +
+    '</div>'
+  );
+}
+
+function viewDeals() {
+  const activeCat = S.dealsCategory;
+  const deals = activeDeals().filter(function (entry) { return !activeCat || entry.deal.service === activeCat; });
+  return (
+    '<div class="g-page">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<section class="g-hero" style="padding-top:14px;">' +
+        '<div class="g-kicker">Open appointment + special price</div>' +
+        '<h1 class="g-h3" style="font-size:26px;">' + (activeCat ? esc(activeCat) + ' Deals' : 'Last-Minute Deals') + '</h1>' +
+        '<p class="g-sub">Real pros with a real opening, priced to fill it today.</p>' +
+      '</section>' +
+      '<div class="g-chips" style="margin-bottom:16px;">' +
+        chip('All', !activeCat, 'set-deals-category', '') +
+        SERVICES.map(function (svc) { return chip(SERVICE_EMOJI[svc] + ' ' + svc, activeCat === svc, 'set-deals-category', svc); }).join('') +
+      '</div>' +
+      (deals.length === 0
+        ? '<div class="g-empty">' +
+            '<div class="g-empty-mark">\u26a1</div>' +
+            '<p>No deals here yet. Explore Glamour specialists in ' + (activeCat ? 'the ' + esc(activeCat) + ' category' : 'the meantime') + ' and find your next beauty appointment.</p>' +
+            '<button class="g-btn-ghost" style="margin-top:12px;" data-action="' + (activeCat ? 'go-category' : 'go-home') + '"' + (activeCat ? ' data-value="' + esc(activeCat) + '"' : '') + '">' + (activeCat ? 'Browse ' + esc(activeCat) + ' Vendors' : 'Search Availability') + '</button>' +
+          '</div>'
+        : deals.map(dealCard).join('')) +
+    '</div>'
+  );
+}
+
+function vendorHasOpenSlot(p, cat) {
+  return S.data.openings.some(function (o) { return o.providerId === p.id && isOpeningLive(o) && (!cat || o.service === cat); });
+}
+
+function vendorRow(p, cat) {
+  // cat: restrict "soonest opening" + deal-flag check to one category, or null/undefined for "any category" (directory view)
+  const openings = S.data.openings.filter(function (o) { return o.providerId === p.id && isOpeningLive(o) && (!cat || o.service === cat); });
+  const soonest = openings.slice().sort(function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); })[0];
+  const hasDeal = isDealActive(p.deal) && (!cat || p.deal.service === cat);
+  return '<div class="g-row-card' + (soonest ? '' : ' g-dim') + '" style="align-items:flex-start;">' +
+    '<div>' +
+      '<button type="button" class="g-linklike" data-action="go-vendor" data-value="' + p.id + '" style="font-family:\'Fraunces\',serif;font-size:15px;color:var(--ink);text-decoration:none;">' + esc(p.businessName) + '</button>' +
+      (hasDeal ? ' <span class="g-deal-flag">\u26a1 Deal</span>' : '') +
+      '<div class="g-hint">' + esc(p.city) + (p.instagram ? ' \u00b7 ' + esc(p.instagram) : '') + '</div>' +
+      '<div class="g-chips" style="margin-top:4px;">' + p.services.map(function (s) { return '<span class="g-badge">' + SERVICE_EMOJI[s] + ' ' + s + '</span>'; }).join('') + '</div>' +
+      (soonest
+        ? '<div class="g-hint" style="margin-top:4px;">Next opening: ' + fmtDate(soonest.date) + ' ' + fmtTime(soonest.time) + ' \u00b7 $' + soonest.price + '</div>'
+        : '<div class="g-hint" style="margin-top:4px;">No open slots posted right now \u2014 not currently bookable through GLAMR.</div>') +
+    '</div>' +
+    '<button class="g-btn-ghost g-btn-small" data-action="go-vendor" data-value="' + p.id + '">' + (soonest ? 'View Profile' : 'See Profile') + '</button>' +
+  '</div>';
+}
+
+function viewCategory() {
+  const cat = S.activeCategory;
+  if (!cat || SERVICES.indexOf(cat) === -1) return '<div class="g-page"><p class="g-hint">Category not found.</p><button class="g-linklike" data-action="go-home">&larr; Back home</button></div>';
+  const vendors = S.data.providers.filter(function (p) { return p.services.indexOf(cat) !== -1; });
+  const catDeals = activeDeals().filter(function (entry) { return entry.deal.service === cat; });
+  return (
+    '<div class="g-page">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<section class="g-hero" style="padding-top:14px;">' +
+        '<div class="g-kicker">' + SERVICE_EMOJI[cat] + ' Category</div>' +
+        '<h1 class="g-h3" style="font-size:28px;">' + esc(cat) + '</h1>' +
+        '<p class="g-sub">Find Glamour specialists offering ' + esc(cat) + ' services.</p>' +
+        '<button class="g-btn-accent g-btn-small" style="margin-top:8px;" data-action="search-category" data-value="' + esc(cat) + '">See Available Openings</button>' +
+      '</section>' +
+
+      '<h3 class="g-h4 g-section-title">' + esc(cat) + ' Deals</h3>' +
+      (catDeals.length === 0
+        ? '<div class="g-empty" style="padding:24px 10px;"><p>No deals here yet. Explore Glamour specialists in this category and find your next beauty appointment.</p></div>'
+        : catDeals.map(dealCard).join('')) +
+
+      '<h3 class="g-h4 g-section-title">Specialists offering ' + esc(cat) + '</h3>' +
+      (vendors.length === 0
+        ? '<div class="g-empty" style="padding:20px 10px;"><div class="g-empty-mark">\ud83c\udf31</div><p>No one\u2019s listed under ' + esc(cat) + ' yet \u2014 check back soon, or <button type="button" class="g-linklike" data-action="go-directory">browse every specialist</button> instead.</p></div>'
+        : (function () {
+            const withSlots = vendors.filter(function (p) { return vendorHasOpenSlot(p, cat); });
+            const withoutSlots = vendors.filter(function (p) { return !vendorHasOpenSlot(p, cat); });
+            return (withSlots.length
+              ? '<div class="g-list">' + withSlots.map(function (p) { return vendorRow(p, cat); }).join('') + '</div>'
+              : '<p class="g-hint">No one\u2019s showing an open ' + esc(cat) + ' slot right now \u2014 check back soon, or browse everyone below.</p>') +
+            (withoutSlots.length
+              ? '<h3 class="g-h4 g-section-title" style="margin-top:22px;">Also offers ' + esc(cat) + ' \u2014 no current openings</h3>' +
+                '<div class="g-list">' + withoutSlots.map(function (p) { return vendorRow(p, cat); }).join('') + '</div>'
+              : '');
+          })()) +
+    '</div>'
+  );
+}
+
+function viewDirectory() {
+  const vendors = S.data.providers.slice().sort(function (a, b) { return a.businessName.localeCompare(b.businessName); });
+  return (
+    '<div class="g-page">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<section class="g-hero" style="padding-top:14px;">' +
+        '<div class="g-kicker">Browse everyone</div>' +
+        '<h1 class="g-h3" style="font-size:28px;">All Glamour Specialists</h1>' +
+        '<p class="g-sub">Every beauty pro on Glamour, in one place \u2014 no filters applied. Prefer to narrow it down? Use search or a category instead.</p>' +
+      '</section>' +
+      (vendors.length === 0
+        ? '<div class="g-empty" style="padding:20px 10px;"><div class="g-empty-mark">\u2728</div><p>GLAMR is just getting started here \u2014 check back soon as more pros join.</p></div>'
+        : (function () {
+            const withSlots = vendors.filter(function (p) { return vendorHasOpenSlot(p, null); });
+            const withoutSlots = vendors.filter(function (p) { return !vendorHasOpenSlot(p, null); });
+            return (withSlots.length
+              ? '<div class="g-list">' + withSlots.map(function (p) { return vendorRow(p, null); }).join('') + '</div>'
+              : '<p class="g-hint">No one\u2019s showing an open slot right now \u2014 check back soon, or browse everyone below.</p>') +
+            (withoutSlots.length
+              ? '<h3 class="g-h4 g-section-title" style="margin-top:22px;">No current openings</h3>' +
+                '<div class="g-list">' + withoutSlots.map(function (p) { return vendorRow(p, null); }).join('') + '</div>'
+              : '');
+          })()) +
+    '</div>'
+  );
+}
+
+
+function viewVendorProfile() {
+  const p = providerById(S.activeVendorId);
+  if (!p) return '<div class="g-page"><p class="g-hint">Business not found.</p><button class="g-linklike" data-action="go-home">&larr; Back home</button></div>';
+  const openings = S.data.openings.filter(function (o) { return o.providerId === p.id && isOpeningLive(o); })
+    .sort(function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); });
+  const deal = isDealActive(p.deal) ? p.deal : null;
+  const reviews = reviewsForProvider(p.id);
+  const avg = avgRating(p.id);
+  return (
+    '<div class="g-page">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<section class="g-hero" style="padding-top:14px;">' +
+        (p.profilePhoto ? '<div class="g-profile-avatar"><img src="' + esc(p.profilePhoto) + '" alt="' + esc(p.businessName) + '"></div>' : '') +
+        '<div class="g-kicker">' + esc(p.city) + (p.zip ? ', TX ' + esc(p.zip) : '') + '</div>' +
+        '<h1 class="g-h3" style="font-size:28px;">' + esc(p.businessName) + '</h1>' +
+        (avg ? '<p class="g-mono" style="color:var(--gold);margin:2px 0;">' + starString(avg) + ' <span style="color:var(--muted);font-family:\'Work Sans\',sans-serif;">' + avg + ' (' + reviews.length + ' review' + (reviews.length === 1 ? '' : 's') + ')</span></p>' : '') +
+        '<p class="g-sub">' + esc(p.description || '') + '</p>' +
+        '<div class="g-chips" style="margin-top:10px;">' + p.services.map(function (s) { return '<span class="g-badge">' + SERVICE_EMOJI[s] + ' ' + s + '</span>'; }).join('') + '</div>' +
+        (p.instagram ? '<p class="g-hint" style="margin-top:8px;">' + esc(p.instagram) + '</p>' : '') +
+        (function () {
+          const booking = bookingLinkFor(p);
+          if (!booking) return '';
+          return '<span class="g-badge" style="margin-top:8px;">\ud83d\udcc5 Books via ' + booking.label + '</span>';
+        })() +
+      '</section>' +
+
+      (deal
+        ? '<div class="g-form-card" style="border-color:var(--accent);">' +
+            '<div class="g-deal-flag">\u26a1 Last-Minute Deal</div>' +
+            '<h3 class="g-h4" style="margin-top:6px;">' + esc(deal.title) + '</h3>' +
+            '<p class="g-hint">' + esc(deal.description || '') + '</p>' +
+            '<div style="display:flex;align-items:center;gap:10px;margin-top:8px;">' +
+              '<span class="g-deal-price-old g-mono">$' + Number(deal.originalPrice) + '</span>' +
+              '<span class="g-ticket-price g-mono">$' + Number(deal.dealPrice) + '</span>' +
+            '</div>' +
+            '<p class="g-hint" style="margin-top:6px;">' + dealExpiryLabel(deal) + '</p>' +
+          '</div>'
+        : '') +
+
+      (p.portfolio && p.portfolio.length
+        ? '<h3 class="g-h4 g-section-title">Portfolio</h3>' +
+          '<div class="g-gallery">' + p.portfolio.map(function (url) {
+            return '<button type="button" class="g-gallery-item g-zoomable" data-action="zoom-photo" data-value="' + p.id + '" data-url="' + esc(url) + '"><img src="' + esc(url) + '" alt="' + esc(p.businessName) + ' portfolio photo"></button>';
+          }).join('') + '</div>'
+        : '') +
+
+      '<div class="g-dash-head g-section-title">' +
+        '<h3 class="g-h4" style="margin:0;">Reviews' + (reviews.length ? ' (' + reviews.length + ')' : '') + '</h3>' +
+        '<button class="g-linklike" data-action="go-review" data-value="' + p.id + '">Leave a review</button>' +
+      '</div>' +
+      (reviews.length === 0
+        ? '<p class="g-hint">No reviews yet.</p>'
+        : '<div class="g-list">' + reviews.slice(0, 6).map(function (r) {
+            return '<div class="g-row-card" style="display:block;">' +
+              '<div class="g-mono" style="color:var(--gold);">' + starString(r.rating) + '</div>' +
+              '<div style="font-weight:600;font-size:13px;margin-top:2px;">' + esc(r.name || 'Anonymous') + '</div>' +
+              (r.comment ? '<div class="g-hint" style="margin-top:2px;">' + esc(r.comment) + '</div>' : '') +
+            '</div>';
+          }).join('') + '</div>') +
+
+      '<h3 class="g-h4 g-section-title">Available appointments</h3>' +
+      (openings.length === 0
+        ? '<p class="g-hint">No open slots posted right now.</p>'
+        : '<div class="g-ticket-list">' + openings.map(function (o) { return ticketCard(o); }).join('') + '</div>') +
+    '</div>'
+  );
+}
+
+function viewReview() {
+  const p = providerById(S.activeVendorId);
+  if (!p) return '<div class="g-page"><p class="g-hint">Business not found.</p><button class="g-linklike" data-action="go-home">&larr; Back home</button></div>';
+  if (S.reviewSubmitted) {
+    return (
+      '<div class="g-page g-narrow g-center">' +
+        '<div class="g-thanks-mark">\u2b50</div>' +
+        '<h2 class="g-h3">Thanks for the review!</h2>' +
+        '<p>It now shows on ' + esc(p.businessName) + '\u2019s profile.</p>' +
+        '<button class="g-btn-accent" data-action="go-vendor" data-value="' + p.id + '">Back to Profile</button>' +
+      '</div>'
+    );
+  }
+  const f = S.reviewForm;
+  const canSend = f.rating > 0;
+  return (
+    '<div class="g-page g-narrow">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<div class="g-form-card">' +
+        '<div class="g-eyebrow">Review</div>' +
+        '<h2 class="g-h3">How was ' + esc(p.businessName) + '?</h2>' +
+        '<div class="g-star-picker">' +
+          [1, 2, 3, 4, 5].map(function (n) {
+            return '<button type="button" class="g-star-btn' + (n <= f.rating ? ' filled' : '') + '" data-action="set-review-rating" data-value="' + n + '">\u2605</button>';
+          }).join('') +
+        '</div>' +
+        '<label class="g-label">Your name (optional)</label>' +
+        '<input class="g-input" data-bind="reviewForm.name" value="' + esc(f.name) + '" placeholder="First name & last initial">' +
+        '<label class="g-label">Comment (optional)</label>' +
+        '<textarea class="g-input" rows="3" data-bind="reviewForm.comment" placeholder="What was your experience like?">' + esc(f.comment) + '</textarea>' +
+        '<button class="g-btn-accent g-btn-block"' + (canSend ? '' : ' disabled') + ' data-action="submit-review">Submit Review</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+// Public page behind a vendor's waitlist QR/link (?waitlist=<providerId>).
+// No account needed on the customer's end \u2014 just name + phone so the
+// vendor can text/call them back when a spot opens up.
+function viewWaitlistJoin() {
+  const p = providerById(S.activeVendorId);
+  if (!p) return '<div class="g-page"><p class="g-hint">Business not found.</p><button class="g-linklike" data-action="go-home">&larr; Back home</button></div>';
+  if (S.waitlistJoinSubmitted) {
+    return (
+      '<div class="g-page g-narrow g-center">' +
+        '<div class="g-thanks-mark">\u270b</div>' +
+        '<h2 class="g-h3">You\u2019re on the list!</h2>' +
+        '<p>' + esc(p.businessName) + ' will text or call you when they\u2019re ready for you.</p>' +
+        '<button class="g-btn-accent" data-action="go-vendor" data-value="' + p.id + '">View Their Profile</button>' +
+      '</div>'
+    );
+  }
+  const f = S.waitlistJoinForm;
+  const canSend = f.name.trim() && f.phone.trim();
+  return (
+    '<div class="g-page g-narrow">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<div class="g-form-card">' +
+        '<div class="g-eyebrow">Waitlist</div>' +
+        '<h2 class="g-h3">Join the wait at ' + esc(p.businessName) + '</h2>' +
+        '<p class="g-hint">No app or account needed \u2014 just leave your name and number and they\u2019ll reach out when it\u2019s your turn.</p>' +
+        '<label class="g-label">Name</label>' +
+        '<input class="g-input" data-bind="waitlistJoinForm.name" value="' + esc(f.name) + '" placeholder="Your name">' +
+        '<label class="g-label">Phone</label>' +
+        '<input class="g-input" type="tel" data-bind="waitlistJoinForm.phone" value="' + esc(f.phone) + '" placeholder="(555) 555-5555">' +
+        '<label class="g-label">Note (optional)</label>' +
+        '<input class="g-input" data-bind="waitlistJoinForm.notes" value="' + esc(f.notes) + '" placeholder="e.g. Here for a fade">' +
+        '<button class="g-btn-accent g-btn-block"' + (canSend ? '' : ' disabled') + ' data-action="join-waitlist">Join Waitlist</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+
+function viewProviderSignup() {
+  const f = S.signupForm;
+  const canSubmit = f.businessName && f.email && f.password && f.city && f.services.length;
+  return (
+    '<div class="g-page g-narrow">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<div class="g-form-card">' +
+        '<div class="g-eyebrow">Beauty professional</div>' +
+        '<h2 class="g-h3">Post your first opening in minutes</h2>' +
+        '<p class="g-service-area" style="margin-top:-6px;">📍 GLAMR connects pros with customers in Houston, Katy &amp; surrounding areas</p>' +
+
+        '<label class="g-label">Business name</label><input class="g-input" data-bind="signupForm.businessName" value="' + esc(f.businessName) + '">' +
+        '<label class="g-label">Owner / provider name</label><input class="g-input" data-bind="signupForm.ownerName" value="' + esc(f.ownerName) + '">' +
+        '<label class="g-label">Email</label><input class="g-input" data-bind="signupForm.email" value="' + esc(f.email) + '">' +
+        '<label class="g-label">Phone</label><input class="g-input" data-bind="signupForm.phone" value="' + esc(f.phone) + '">' +
+        '<label class="g-label">Password</label><input class="g-input" type="password" data-bind="signupForm.password" value="' + esc(f.password) + '">' +
+        '<div class="g-two-col">' +
+          '<div><label class="g-label">City</label><input class="g-input" data-bind="signupForm.city" value="' + esc(f.city) + '"></div>' +
+          '<div><label class="g-label">ZIP</label><input class="g-input" data-bind="signupForm.zip" value="' + esc(f.zip) + '"></div>' +
+        '</div>' +
+        '<label class="g-label">Services offered</label>' +
+        '<div class="g-chips">' + SERVICES.map(function (s) { return chip(s, f.services.indexOf(s) !== -1, 'toggle-signup-service', s); }).join('') + '</div>' +
+        '<label class="g-label">Instagram (optional)</label><input class="g-input" data-bind="signupForm.instagram" value="' + esc(f.instagram) + '" placeholder="@yourhandle">' +
+        '<label class="g-label">Website (optional)</label><input class="g-input" data-bind="signupForm.website" value="' + esc(f.website) + '" placeholder="https://yourbusiness.com">' +
+        '<label class="g-label">Where should customers book?</label>' +
+        '<div class="g-chips">' +
+          chip('Instagram', f.preferredBooking === 'instagram', 'set-preferred-booking', 'instagram') +
+          chip('Website', f.preferredBooking === 'website', 'set-preferred-booking', 'website') +
+        '</div>' +
+        '<p class="g-hint" style="margin-top:6px;">Shown on your profile so customers know exactly where to tap to book with you.</p>' +
+        '<label class="g-label">Profile photo (optional)</label>' +
+        '<div class="g-avatar-row">' +
+          (f.profilePhoto ? '<div class="g-avatar-preview"><img src="' + esc(f.profilePhoto) + '" alt="Profile preview"></div>' : '') +
+          '<input type="file" accept="image/*" id="profile-photo-file-signup" data-file-profile="signup" style="display:none;">' +
+          '<button type="button" class="g-btn-ghost g-btn-small" onclick="document.getElementById(\'profile-photo-file-signup\').click()">\ud83d\udcf7 ' + (f.profilePhoto ? 'Change Photo' : 'Upload Logo / Photo') + '</button>' +
+        '</div>' +
+        '<label class="g-label">Short description</label><textarea class="g-input" rows="3" data-bind="signupForm.description">' + esc(f.description) + '</textarea>' +
+        '<label class="g-label">Portfolio photos (optional)</label>' +
+        '<p class="g-hint" style="margin-top:-2px;">Add a few photos of your work so customers can see it before they book.</p>' +
+        portfolioEditor(f.portfolio, 'signup', 'remove-signup-photo') +
+        (f.error ? '<p class="g-error">' + esc(f.error) + '</p>' : '') +
+        '<button class="g-btn-accent g-btn-block"' + (canSubmit ? '' : ' disabled') + ' data-action="submit-signup">Create Profile</button>' +
+        '<button class="g-linklike g-center-text" data-action="go-provider-login">Already have an account? Log in</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function viewProviderOnboarding() {
+  const provider = providerById(S.session);
+  const steps = [
+    { emoji: '\ud83d\udc64', title: 'Your profile is live!', body: 'Business name, category, location, Instagram, bio, and photo \u2014 customers can already see it right now.' },
+    { emoji: '\u26a1', title: 'Post a last-minute offer', body: 'Got an opening today or soon? Add it from your dashboard so customers searching right now can grab it.' },
+    { emoji: '\ud83d\uddbc\ufe0f', title: 'Customers discover you', body: 'They see your offer, price, availability, portfolio photos, reviews, and profile \u2014 all right here on GLAMR.' },
+    { emoji: '\ud83d\udcf8', title: 'They book YOU, your way', body: 'GLAMR doesn\u2019t touch your calendar. When they\u2019re ready, they tap \u201cBook with Provider\u201d and land straight in your Instagram DMs to lock it in.' },
+    { emoji: '\ud83d\udcc8', title: 'Watch your traffic grow', body: 'Your dashboard tracks profile views, offer views, portfolio views, Instagram clicks, and reviews \u2014 real proof GLAMR is sending you customers.' },
+  ];
+  return (
+    '<div class="g-page g-narrow">' +
+      '<div class="g-form-card">' +
+        '<div class="g-onboard-hero">' +
+          '<div class="g-onboard-hero-mark">\ud83c\udf89</div>' +
+          '<div class="g-eyebrow">Welcome to GLAMR' + (provider ? ', ' + esc(provider.businessName) : '') + '</div>' +
+          '<h2 class="g-h3" style="margin-top:2px;">You\u2019re all set on GLAMR!</h2>' +
+          '<p class="g-hint" style="margin-top:6px;">Here\u2019s the whole ride, start to finish \u2014 takes 30 seconds.</p>' +
+        '</div>' +
+        '<div style="margin-top:6px;">' +
+          steps.map(function (s, i) {
+            return '<div class="g-onboard-step">' +
+              (i < steps.length - 1 ? '<div class="g-onboard-line"></div>' : '') +
+              '<div class="g-onboard-num">' + s.emoji + '</div>' +
+              '<div>' +
+                '<div class="g-onboard-title">' + s.title + '</div>' +
+                '<div class="g-onboard-body">' + s.body + '</div>' +
+              '</div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+        '<div class="g-onboard-value">\u2728 Keep booking the way you already do \u2014 GLAMR just helps more people find you.</div>' +
+        '<button class="g-btn-accent g-btn-block" style="margin-top:18px;" data-action="go-provider-dashboard">Let\u2019s get you discovered \ud83d\ude80</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function viewProviderLogin() {
+  const f = S.loginForm;
+  return (
+    '<div class="g-page g-narrow">' +
+      '<button class="g-linklike" data-action="go-back">&larr; Back</button>' +
+      '<div class="g-form-card">' +
+        '<div class="g-eyebrow">Beauty professional</div>' +
+        '<h2 class="g-h3">Log in</h2>' +
+        '<p class="g-service-area" style="margin-top:-6px;">📍 GLAMR connects pros with customers in Houston, Katy &amp; surrounding areas</p>' +
+        '<label class="g-label">Email</label><input class="g-input" data-bind="loginForm.email" value="' + esc(f.email) + '">' +
+        '<label class="g-label">Password</label><input class="g-input" type="password" data-bind="loginForm.password" value="' + esc(f.password) + '">' +
+        (f.error ? '<p class="g-error">' + esc(f.error) + '</p>' : '') +
+        '<button class="g-btn-accent g-btn-block" data-action="submit-login">Log In</button>' +
+        '<button class="g-linklike g-center-text" data-action="go-provider-signup">New here? Create a profile</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function freshDealForm(provider, existing) {
+  if (existing) {
+    return {
+      id: existing.id, title: existing.title, service: existing.service,
+      originalPrice: existing.originalPrice, dealPrice: existing.dealPrice,
+      discountPercent: existing.discountPercent || '', description: existing.description,
+      expiresDate: existing.expiresAt.slice(0, 10), expiresTime: existing.expiresAt.slice(11, 16),
+      scope: existing.scope, specificDate: existing.specificDate || todayStr(0), specificTime: existing.specificTime || '12:00',
+      image: existing.image || '',
+    };
+  }
+  return {
+    id: null, title: '', service: provider.services[0] || SERVICES[0],
+    originalPrice: '', dealPrice: '', discountPercent: '', description: '',
+    expiresDate: todayStr(0), expiresTime: '21:00',
+    scope: 'general', specificDate: todayStr(0), specificTime: '12:00', image: '',
+  };
+}
+
+function dealManagerSection(provider) {
+  const existing = provider.deal;
+  const active = isDealActive(existing);
+
+  if (S.dealForm) {
+    const f = S.dealForm;
+    const serviceOptions = provider.services.length ? provider.services : SERVICES;
+    const canSave = f.title.trim() && f.service && f.originalPrice && f.dealPrice && f.expiresDate && f.expiresTime;
+    return (
+      '<div class="g-form-card">' +
+        '<h3 class="g-h4">' + (f.id ? 'Edit your deal' : 'Add a deal') + '</h3>' +
+        '<p class="g-hint">Optional \u2014 only fill this in if you have a special price on an open slot right now.</p>' +
+
+        '<label class="g-label">Deal title</label>' +
+        '<input class="g-input" data-bind="dealForm.title" value="' + esc(f.title) + '" placeholder="e.g. Cancellation Special">' +
+
+        '<div class="g-two-col">' +
+          '<div><label class="g-label">Service included</label>' +
+            '<select class="g-select g-block" data-bind="dealForm.service">' +
+              serviceOptions.map(function (s) { return '<option value="' + s + '"' + (f.service === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') +
+            '</select>' +
+          '</div>' +
+          '<div><label class="g-label">Discount % (optional)</label><input class="g-input" type="number" data-bind="dealForm.discountPercent" value="' + esc(f.discountPercent) + '" placeholder="auto"></div>' +
+        '</div>' +
+
+        '<div class="g-two-col">' +
+          '<div><label class="g-label">Original price ($)</label><input class="g-input" type="number" data-bind="dealForm.originalPrice" value="' + esc(f.originalPrice) + '"></div>' +
+          '<div><label class="g-label">Deal price ($)</label><input class="g-input" type="number" data-bind="dealForm.dealPrice" value="' + esc(f.dealPrice) + '"></div>' +
+        '</div>' +
+
+        '<label class="g-label">Deal description</label>' +
+        '<textarea class="g-input" rows="2" data-bind="dealForm.description" placeholder="What makes this opening worth grabbing?">' + esc(f.description) + '</textarea>' +
+
+        '<div class="g-two-col">' +
+          '<div><label class="g-label">Expires \u2014 date</label><input class="g-input" type="date" data-bind="dealForm.expiresDate" value="' + esc(f.expiresDate) + '"></div>' +
+          '<div><label class="g-label">Expires \u2014 time</label><input class="g-input" type="time" data-bind="dealForm.expiresTime" value="' + esc(f.expiresTime) + '"></div>' +
+        '</div>' +
+
+        '<label class="g-label">Availability</label>' +
+        '<select class="g-select g-block" data-bind="dealForm.scope">' +
+          DEAL_SCOPES.map(function (opt) { return '<option value="' + opt.value + '"' + (f.scope === opt.value ? ' selected' : '') + '>' + opt.label + '</option>'; }).join('') +
+        '</select>' +
+
+        (f.scope === 'specific'
+          ? '<div class="g-two-col">' +
+              '<div><label class="g-label">Specific date</label><input class="g-input" type="date" data-bind="dealForm.specificDate" value="' + esc(f.specificDate) + '"></div>' +
+              '<div><label class="g-label">Specific time</label><input class="g-input" type="time" data-bind="dealForm.specificTime" value="' + esc(f.specificTime) + '"></div>' +
+            '</div>'
+          : '') +
+
+        '<label class="g-label">Deal image (optional)</label>' +
+        '<div class="g-avatar-row">' +
+          (f.image ? '<div class="g-avatar-preview"><img src="' + esc(f.image) + '" alt="Deal image preview"></div>' : '') +
+          '<input type="file" accept="image/*" id="deal-image-file-dash" data-file-deal="dash" style="display:none;">' +
+          '<button type="button" class="g-btn-ghost g-btn-small" onclick="document.getElementById(\'deal-image-file-dash\').click()">\ud83d\udcf7 ' + (f.image ? 'Change Photo' : 'Upload Photo') + '</button>' +
+          (f.image ? '<button type="button" class="g-linklike g-danger g-btn-small" data-action="remove-deal-image">Remove</button>' : '') +
+        '</div>' +
+
+        '<button class="g-btn-accent g-btn-block"' + (canSave ? '' : ' disabled') + ' data-action="save-deal">Save Deal</button>' +
+        '<button class="g-linklike g-center-text" data-action="cancel-deal-form">Cancel</button>' +
+      '</div>'
+    );
+  }
+
+  if (existing) {
+    const pct = dealDiscountPercent(existing);
+    return (
+      '<div class="g-form-card">' +
+        '<div class="g-dash-head" style="margin-bottom:6px;">' +
+          '<h3 class="g-h4" style="margin:0;">Your deal</h3>' +
+          (active ? '<span class="g-badge-today">Active</span>' : '<span class="g-badge">Expired</span>') +
+        '</div>' +
+        '<div class="g-deal-flag">\u26a1 ' + esc(existing.title) + (pct ? ' \u00b7 ' + pct + '% off' : '') + '</div>' +
+        '<p class="g-hint" style="margin-top:6px;">' + esc(existing.service) + ' \u00b7 $' + Number(existing.originalPrice) + ' \u2192 $' + Number(existing.dealPrice) + ' \u00b7 ' + dealExpiryLabel(existing) + '</p>' +
+        '<div class="g-row-actions" style="margin-top:10px;">' +
+          '<button class="g-linklike" data-action="edit-deal">Edit</button>' +
+          '<button class="g-linklike g-danger" data-action="remove-deal">Remove</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  return (
+    '<div class="g-form-card">' +
+      '<h3 class="g-h4">Have an opening to promote?</h3>' +
+      '<p class="g-hint">Deals are optional \u2014 add one only when you have a special price on a real opening.</p>' +
+      '<button class="g-btn-ghost" data-action="add-deal-start">+ Add a Deal</button>' +
+    '</div>'
+  );
+}
+
+function viewProviderDashboard() {
+  const provider = providerById(S.session);
+  if (!provider) return '<div class="g-page"><p class="g-hint">Not logged in.</p></div>';
+  const myOpenings = S.data.openings.filter(function (o) { return o.providerId === provider.id; });
+  const reviews = reviewsForProvider(provider.id);
+  const avg = avgRating(provider.id);
+  const f = S.openingForm;
+  const canPost = f.service && f.date && f.time && f.price;
+  const serviceOptions = provider.services.length ? provider.services : SERVICES;
+
+  return (
+    '<div class="g-page">' +
+      '<div class="g-dash-head">' +
+        '<div><div class="g-eyebrow">Provider dashboard</div><h2 class="g-h3">' + esc(provider.businessName) + '</h2></div>' +
+        '<button class="g-linklike" data-action="provider-logout">Log out</button>' +
+      '</div>' +
+
+      '<div class="g-form-card" style="padding:12px 14px;">' +
+        '<div class="g-theme-row">' +
+          '<span class="g-hint">🎨 Dashboard look (just for you, this device)</span>' +
+          '<button type="button" class="g-btn-ghost g-btn-small" data-action="toggle-dash-theme">' + (S.dashDark ? '\u2600\ufe0f Light mode' : '\ud83c\udf19 Dark mode') + '</button>' +
+        '</div>' +
+        '<div class="g-theme-row" style="margin-top:8px;">' +
+          DASH_ACCENTS.map(function (a) {
+            return '<button type="button" class="g-swatch' + (S.dashAccent === a.key ? ' active' : '') + '" style="background:' + a.accent + ';" data-action="set-dash-accent" data-value="' + a.key + '" title="' + a.name + '" aria-label="' + a.name + ' accent"></button>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+
+      '<div class="g-eyebrow g-section-title" style="margin-top:0;">GLAMR Performance Analytics</div>' +
+      '<div class="g-dash-stats">' +
+        '<div class="g-dash-stat"><div class="g-dash-stat-num">' + (provider.profileViews || 0) + '</div><div class="g-hint">Profile Views</div></div>' +
+        '<div class="g-dash-stat"><div class="g-dash-stat-num">' + (provider.instagramClicks || 0) + '</div><div class="g-hint">Instagram Clicks</div></div>' +
+        '<div class="g-dash-stat"><div class="g-dash-stat-num">' + (provider.websiteClicks || 0) + '</div><div class="g-hint">Website Clicks</div></div>' +
+        '<div class="g-dash-stat"><div class="g-dash-stat-num">' + (provider.confirmedBookings || 0) + '</div><div class="g-hint">Bookings Confirmed</div></div>' +
+        '<div class="g-dash-stat"><div class="g-dash-stat-num">' + reviews.length + '</div><div class="g-hint">Reviews' + (avg ? ' (' + avg + '\u2605)' : '') + '</div></div>' +
+      '</div>' +
+      '<p class="g-hint" style="margin-top:-10px;margin-bottom:22px;">' + ((provider.instagramClicks || 0) + (provider.websiteClicks || 0)) + ' total clicks to book from GLAMR \u2014 that\u2019s traffic sent, not a confirmed booking. \u201cBookings Confirmed\u201d only counts openings you\u2019ve tapped \u201cmark as booked\u201d on.</p>' +
+
+      '<h3 class="g-h4 g-section-title">Profile photo</h3>' +
+      '<div class="g-form-card">' +
+        '<div class="g-avatar-row">' +
+          (provider.profilePhoto ? '<div class="g-avatar-preview"><img src="' + esc(provider.profilePhoto) + '" alt="Profile preview"></div>' : '') +
+          '<input type="file" accept="image/*" id="profile-photo-file-dash" data-file-profile="dash" style="display:none;">' +
+          '<button type="button" class="g-btn-ghost g-btn-small" onclick="document.getElementById(\'profile-photo-file-dash\').click()">\ud83d\udcf7 ' + (provider.profilePhoto ? 'Change Logo / Photo' : 'Upload Logo / Photo') + '</button>' +
+        '</div>' +
+      '</div>' +
+
+      businessInfoSection(provider) +
+
+      '<div class="g-form-card">' +
+        '<h3 class="g-h4">Post an opening</h3>' +
+        '<div class="g-two-col">' +
+          '<div><label class="g-label">Service</label>' +
+            '<select class="g-select g-block" data-bind="openingForm.service">' +
+              serviceOptions.map(function (s) { return '<option value="' + s + '"' + (f.service === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') +
+            '</select>' +
+          '</div>' +
+          '<div><label class="g-label">Price ($)</label><input class="g-input" type="number" data-bind="openingForm.price" value="' + esc(f.price) + '"></div>' +
+        '</div>' +
+        '<div class="g-two-col">' +
+          '<div><label class="g-label">Date</label><input class="g-input" type="date" data-bind="openingForm.date" value="' + esc(f.date) + '"></div>' +
+          '<div><label class="g-label">Time</label><input class="g-input" type="time" data-bind="openingForm.time" value="' + esc(f.time) + '"></div>' +
+        '</div>' +
+        '<div class="g-two-col">' +
+          '<div><label class="g-label">Duration (optional)</label><input class="g-input" data-bind="openingForm.duration" value="' + esc(f.duration) + '" placeholder="e.g. 45 min"></div>' +
+          '<div><label class="g-label">Location</label><input class="g-input" data-bind="openingForm.location" value="' + esc(f.location) + '"></div>' +
+        '</div>' +
+        '<button class="g-btn-accent g-btn-block"' + (canPost ? '' : ' disabled') + ' data-action="post-opening">Post Opening</button>' +
+      '</div>' +
+
+      '<h3 class="g-h4 g-section-title">Portfolio photos</h3>' +
+      '<div class="g-form-card">' +
+        '<p class="g-hint">Customers see these on your profile before they book \u2014 add a few examples of your work.</p>' +
+        portfolioEditor(provider.portfolio, 'dash', 'remove-dash-photo') +
+      '</div>' +
+
+      dealManagerSection(provider) +
+
+      featuredToggleSection(provider) +
+      waitlistManagerSection(provider) +
+
+      '<h3 class="g-h4 g-section-title">Your available appointments</h3>' +
+      (myOpenings.length === 0
+        ? '<p class="g-hint">No openings posted yet \u2014 add one above.</p>'
+        : '<div class="g-list">' + myOpenings.map(function (o) {
+            const expired = isOpeningExpired(o);
+            const dim = expired || o.status !== 'active';
+            const statusNote = expired ? ' \u00b7 Expired \u2014 no longer visible to customers'
+              : o.status === 'booked' ? ' \u00b7 Booked \u2713'
+              : o.status !== 'active' ? ' \u00b7 Unavailable' : '';
+            const toggleLabel = o.status === 'active' ? 'Mark unavailable' : (o.status === 'booked' ? 'Not actually booked?' : 'Reactivate');
+            return '<div class="g-row-card' + (dim ? ' g-dim' : '') + '">' +
+              '<div><strong>' + esc(o.service) + '</strong> \u2014 ' + fmtDate(o.date) + ' ' + fmtTime(o.time) + ' \u00b7 <span class="g-mono">$' + o.price + '</span>' +
+                '<div class="g-hint">' + esc(o.location) + statusNote + '</div></div>' +
+              '<div class="g-row-actions">' +
+                (!expired && o.status === 'active' ? '<button class="g-linklike" data-action="go-confirm-booking" data-value="' + o.id + '">Confirm booking</button>' : '') +
+                (expired ? '' : '<button class="g-linklike" data-action="toggle-opening" data-value="' + o.id + '">' + toggleLabel + '</button>') +
+                '<button class="g-linklike g-danger" data-action="delete-opening" data-value="' + o.id + '">Delete</button>' +
+              '</div></div>';
+          }).join('') + '</div>') +
+
+      reviewsManagerSection(provider) +
+    '</div>'
+  );
+}
+
+function viewOpeningSuccess() {
+  const o = S.lastPostedOpening;
+  return (
+    '<div class="g-page g-narrow g-center">' +
+      '<div class="g-thanks-mark">\u2705</div>' +
+      '<h2 class="g-h3">Opening posted!</h2>' +
+      (o
+        ? '<p class="g-summary">' + esc(o.service) + ' \u00b7 ' + fmtDate(o.date) + ' ' + fmtTime(o.time) + ' \u00b7 <span class="g-mono">$' + o.price + '</span></p>'
+        : '') +
+      '<p>Customers searching GLAMR right now can see and book this slot with you.</p>' +
+      '<button class="g-btn-accent g-btn-block" data-action="go-provider-dashboard">Back to Dashboard</button>' +
+    '</div>'
+  );
+}
+
+function viewDealSuccess() {
+  const d = S.lastPostedDeal;
+  return (
+    '<div class="g-page g-narrow g-center">' +
+      '<div class="g-thanks-mark">\u2705</div>' +
+      '<h2 class="g-h3">Deal is live!</h2>' +
+      (d
+        ? '<p class="g-summary">' + esc(d.title) + ' \u00b7 ' + esc(d.service) + ' \u00b7 <span class="g-mono">$' + Number(d.originalPrice) + ' \u2192 $' + Number(d.dealPrice) + '</span></p>'
+        : '') +
+      '<p>Customers browsing GLAMR Deals right now can see this offer.</p>' +
+      '<button class="g-btn-accent g-btn-block" data-action="go-provider-dashboard">Back to Dashboard</button>' +
+    '</div>'
+  );
+}
+
+// Editable Instagram / Website / preferred-booking-method fields, staged in
+// S.businessForm and saved explicitly via "Save Business Info" (see
+// freshBusinessForm and the 'save-business-info' action) \u2014 same pattern as
+// the opening-post form, so a half-typed edit never silently autosaves.
+function businessInfoSection(provider) {
+  const f = S.businessForm || freshBusinessForm(provider);
+  const dirty = f.instagram !== (provider.instagram || '') || f.website !== (provider.website || '') || f.preferredBooking !== (provider.preferredBooking || 'instagram');
+  return (
+    '<h3 class="g-h4 g-section-title">Business Info</h3>' +
+    '<div class="g-form-card">' +
+      '<label class="g-label">Instagram</label><input class="g-input" data-bind="businessForm.instagram" value="' + esc(f.instagram) + '" placeholder="@yourhandle">' +
+      '<label class="g-label">Website</label><input class="g-input" data-bind="businessForm.website" value="' + esc(f.website) + '" placeholder="https://yourbusiness.com">' +
+      '<label class="g-label">Where should customers book?</label>' +
+      '<div class="g-chips">' +
+        chip('Instagram', f.preferredBooking === 'instagram', 'set-dash-preferred-booking', 'instagram') +
+        chip('Website', f.preferredBooking === 'website', 'set-dash-preferred-booking', 'website') +
+      '</div>' +
+      '<p class="g-hint" style="margin-top:6px;">This decides which link customers see on your opening \u2014 shown on your profile too.</p>' +
+      '<button class="g-btn-accent g-btn-block" style="margin-top:12px;"' + (dirty ? '' : ' disabled') + ' data-action="save-business-info">Save Business Info</button>' +
+    '</div>'
+  );
+}
+
+// Featured Pros carousel opt-in — every vendor can switch this on, no paid
+// tier involved. Kept as an explicit opt-in (not automatic for everyone) so
+// the carousel doesn't just list every vendor and lose any meaning.
+function featuredToggleSection(provider) {
+  return (
+    '<h3 class="g-h4 g-section-title">Get Featured</h3>' +
+    '<div class="g-form-card">' +
+      '<p class="g-hint">When this is on, you can appear in the \u2728 Featured Pros carousel on the GLAMR home page (rotated weekly, filtered by category).</p>' +
+      '<div class="g-theme-row" style="margin-top:10px;">' +
+        '<strong style="font-size:14px;">' + (provider.featured ? 'Featured \u2014 on' : 'Not currently featured') + '</strong>' +
+        '<button class="g-btn-ghost g-btn-small" data-action="toggle-featured">' + (provider.featured ? 'Turn off' : 'Turn on') + '</button>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+// Walk-in waitlist \u2014 customers join by scanning a QR / opening a link, no
+// app or account needed. This is a manual-assist tool, not automated SMS:
+// GLAMR doesn't send texts on the vendor's behalf (that needs a paid SMS
+// provider like Twilio wired up separately), so each row's "Text" / "Call"
+// buttons just open the vendor's own phone's messaging/dialer app via a
+// tel:/sms: link, pre-filled where possible.
+function waitlistManagerSection(provider) {
+  const link = waitlistLinkFor(provider.id);
+  const entries = (S.data.waitlist || []).filter(function (w) { return w.providerId === provider.id && w.status === 'waiting'; })
+    .sort(function (a, b) { return a.createdAt - b.createdAt; });
+  return (
+    '<h3 class="g-h4 g-section-title">Waitlist</h3>' +
+    '<div class="g-form-card">' +
+      '<p class="g-hint">Share this link or QR at your counter/window so walk-ins can join without downloading anything.</p>' +
+      '<div class="g-qr-box">' + renderQRSVG(link, 150) + '</div>' +
+      '<div class="g-link-row">' +
+        '<input class="g-input" readonly value="' + esc(link) + '" onclick="this.select()">' +
+        '<button class="g-btn-ghost g-btn-small" data-action="copy-waitlist-link" data-value="' + esc(link) + '">Copy Link</button>' +
+      '</div>' +
+      (entries.length === 0
+        ? '<p class="g-hint" style="margin-top:14px;">No one\u2019s waiting right now.</p>'
+        : '<div class="g-list" style="margin-top:14px;">' + entries.map(function (w, i) {
+            const phoneDigits = (w.phone || '').replace(/[^\d+]/g, '');
+            return '<div class="g-row-card" style="display:block;">' +
+              '<div style="display:flex;justify-content:space-between;align-items:baseline;">' +
+                '<strong>' + (i + 1) + '. ' + esc(w.name) + '</strong>' +
+                '<span class="g-hint">' + esc(w.phone) + '</span>' +
+              '</div>' +
+              (w.notes ? '<div class="g-hint" style="margin-top:2px;">' + esc(w.notes) + '</div>' : '') +
+              '<div class="g-row-actions" style="margin-top:8px;">' +
+                (phoneDigits ? '<a class="g-linklike" href="sms:' + esc(phoneDigits) + '">Text</a><a class="g-linklike" href="tel:' + esc(phoneDigits) + '">Call</a>' : '') +
+                '<button class="g-linklike" data-action="waitlist-mark-seated" data-value="' + w.id + '">Mark seated</button>' +
+                '<button class="g-linklike g-danger" data-action="waitlist-remove" data-value="' + w.id + '">Remove</button>' +
+              '</div>' +
+            '</div>';
+          }).join('') + '</div>') +
+    '</div>'
+  );
+}
+
+function reviewsManagerSection(provider) {
+  const reviews = reviewsForProvider(provider.id);
+  const avg = avgRating(provider.id);
+  const link = reviewLinkFor(provider.id);
+  return (
+    '<h3 class="g-h4 g-section-title">Reviews</h3>' +
+    '<div class="g-form-card">' +
+      '<p class="g-hint">Share this link or QR code with customers after their appointment so they can leave a review \u2014 no app or account needed on their end.</p>' +
+      '<div class="g-qr-box">' + renderQRSVG(link, 150) + '</div>' +
+      '<div class="g-link-row">' +
+        '<input class="g-input" readonly value="' + esc(link) + '" onclick="this.select()">' +
+        '<button class="g-btn-ghost g-btn-small" data-action="copy-review-link" data-value="' + esc(link) + '">Copy Link</button>' +
+      '</div>' +
+      (avg
+        ? '<p class="g-mono" style="color:var(--gold);margin-top:14px;">' + starString(avg) + ' <span style="color:var(--muted);font-family:\'Work Sans\',sans-serif;">' + avg + ' average \u00b7 ' + reviews.length + ' review' + (reviews.length === 1 ? '' : 's') + '</span></p>'
+        : '<p class="g-hint" style="margin-top:14px;">No reviews yet.</p>') +
+      (reviews.length
+        ? '<div class="g-list" style="margin-top:10px;">' + reviews.slice(0, 5).map(function (r) {
+            return '<div class="g-row-card" style="display:block;">' +
+              '<div class="g-mono" style="color:var(--gold);">' + starString(r.rating) + '</div>' +
+              '<div style="font-weight:600;font-size:13px;margin-top:2px;">' + esc(r.name || 'Anonymous') + '</div>' +
+              (r.comment ? '<div class="g-hint" style="margin-top:2px;">' + esc(r.comment) + '</div>' : '') +
+            '</div>';
+          }).join('') + '</div>'
+        : '') +
+    '</div>'
+  );
+}
+
+function viewAdmin() {
+  if (!S.adminUnlocked) {
+    return (
+      '<div class="g-admin-overlay" style="position:fixed;inset:0;background:rgba(43,27,46,0.55);display:flex;align-items:flex-start;justify-content:center;padding:30px 14px;overflow-y:auto;z-index:50;">' +
+        '<div class="g-form-card" style="max-width:320px;width:100%;margin-top:40px;">' +
+          '<h3 class="g-h4">Admin</h3>' +
+          '<input class="g-input" type="password" placeholder="Passcode" data-bind="adminCode" value="' + esc(S.adminCode) + '">' +
+          (S.adminError ? '<p class="g-error">' + esc(S.adminError) + '</p>' : '') +
+          '<div class="g-row-actions" style="margin-top:10px;">' +
+            '<button class="g-btn-accent" data-action="admin-enter">Enter</button>' +
+            '<button class="g-linklike" data-action="go-home">Cancel</button>' +
+          '</div>' +
+          '<p class="g-hint">Demo passcode: <span class="g-mono">' + ADMIN_PASSCODE + '</span></p>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  const counts = {};
+  S.data.events.forEach(function (e) { counts[e.type] = (counts[e.type] || 0) + 1; });
+
+  return (
+    '<div class="g-admin-overlay" style="position:fixed;inset:0;background:rgba(43,27,46,0.55);display:flex;align-items:flex-start;justify-content:center;padding:30px 14px;overflow-y:auto;z-index:50;">' +
+      '<div style="background:var(--bg);max-width:640px;width:100%;border-radius:18px;padding:22px;max-height:90vh;overflow-y:auto;">' +
+        '<div class="g-dash-head"><h3 class="g-h4">Admin</h3><button class="g-linklike" data-action="admin-close">Close</button></div>' +
+
+        '<h4 class="g-h4">Validation metrics</h4>' +
+        '<div class="g-metrics">' +
+          METRIC_KEYS.map(function (k) {
+            return '<div class="g-metric"><div class="g-metric-num g-mono">' + (counts[k] || 0) + '</div><div class="g-hint">' + k.replace(/_/g, ' ') + '</div></div>';
+          }).join('') +
+        '</div>' +
+
+        '<h4 class="g-h4 g-section-title">Active deals (' + activeDeals().length + ')</h4>' +
+        (activeDeals().length === 0
+          ? '<p class="g-hint">No active deals right now.</p>'
+          : '<div class="g-list">' + activeDeals().map(function (entry) {
+              return '<div class="g-row-card"><div>' + esc(entry.provider.businessName) + ' \u2014 ' + esc(entry.deal.title) + ' \u00b7 $' + Number(entry.deal.originalPrice) + ' \u2192 $' + Number(entry.deal.dealPrice) + '<div class="g-hint">' + dealExpiryLabel(entry.deal) + '</div></div></div>';
+            }).join('') + '</div>') +
+
+        '<h4 class="g-h4 g-section-title">Providers (' + S.data.providers.length + ')</h4>' +
+        '<div class="g-list">' + S.data.providers.map(function (p) {
+          return '<div class="g-row-card"><div><strong>' + esc(p.businessName) + '</strong> \u2014 ' + esc(p.city) + ' \u00b7 ' + p.services.join(', ') + (p.deal ? (isDealActive(p.deal) ? ' \u00b7 \u26a1 deal active' : ' \u00b7 deal expired') : '') + '<div class="g-hint">' + esc(p.email) + '</div></div>' +
+            '<button class="g-linklike g-danger" data-action="admin-delete" data-kind="providers" data-value="' + p.id + '">Delete</button></div>';
+        }).join('') + '</div>' +
+
+        '<h4 class="g-h4 g-section-title">Openings (' + S.data.openings.length + ')</h4>' +
+        '<div class="g-list">' + S.data.openings.map(function (o) {
+          return '<div class="g-row-card"><div>' + esc(o.service) + ' \u2014 ' + fmtDate(o.date) + ' ' + fmtTime(o.time) + ' \u00b7 $' + o.price + ' \u00b7 ' + o.status + '</div>' +
+            '<button class="g-linklike g-danger" data-action="admin-delete" data-kind="openings" data-value="' + o.id + '">Delete</button></div>';
+        }).join('') + '</div>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+/* ---------------------------- actions ---------------------------- */
+
+function setPath(obj, path, value) {
+  const parts = path.split('.');
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) cur = cur[parts[i]];
+  cur[parts[parts.length - 1]] = value;
+}
+function getPath(obj, path) {
+  return path.split('.').reduce(function (cur, k) { return cur == null ? cur : cur[k]; }, obj);
+}
+
+function markSearchStarted() {
+  if (!S.searchStarted) { S.searchStarted = true; logEvent('search_started'); }
+}
+
+function freshOpeningForm(provider) {
+  return {
+    service: provider.services[0] || SERVICES[0],
+    date: todayStr(0), time: '12:00', price: '', duration: '',
+    location: (provider.city + ', TX ' + (provider.zip || '')).trim(),
+  };
+}
+// Staged copy of the editable business-info fields (Instagram, Website,
+// preferred booking method) — edited here, then written to Firestore
+// explicitly via "Save Business Info", same pattern as openingForm/post-opening.
+function freshBusinessForm(provider) {
+  return {
+    instagram: provider.instagram || '', website: provider.website || '',
+    preferredBooking: provider.preferredBooking || 'instagram',
+  };
+}
+
+// Real back-navigation history (not a hardcoded guess at the previous page) —
+// every screen you can land on mid-flow (request form, vendor profile,
+// category page, deals) should always have a working way back to wherever
+// the customer actually came from, never a dead end.
+function snapshotNav() {
+  return { view: S.view, activeVendorId: S.activeVendorId, activeCategory: S.activeCategory, dealsCategory: S.dealsCategory, activeOpeningId: S.activeOpeningId };
+}
+function goTo(view, extra) {
+  if (S.view !== view) {
+    S.navHistory.push(snapshotNav());
+    if (S.navHistory.length > 25) S.navHistory.shift();
+    // Mirror the in-app nav stack onto the browser's own history so a
+    // customer's phone back button/swipe gesture steps back through GLAMR's
+    // screens instead of exiting the app entirely. Only counted as pushed
+    // if it actually succeeds, so goBack() below never assumes a browser
+    // history entry exists that isn't really there.
+    try { history.pushState({ glamrNav: true }, ''); S.pushedHistoryCount++; } catch (e) {}
+  }
+  S.view = view;
+  if (extra) Object.keys(extra).forEach(function (k) { S[k] = extra[k]; });
+  render();
+}
+// The actual state-popping logic, shared by both the in-app Back button and
+// the browser's native back button (via the popstate listener below) so
+// they can never fall out of sync with each other.
+function applyBack() {
+  const prev = S.navHistory.pop();
+  if (!prev) { S.view = 'home'; }
+  else {
+    S.view = prev.view;
+    S.activeVendorId = prev.activeVendorId;
+    S.activeCategory = prev.activeCategory;
+    S.dealsCategory = prev.dealsCategory;
+    S.activeOpeningId = prev.activeOpeningId;
+  }
+  render();
+}
+function goBack() {
+  // If we've got a real pushed browser-history entry, go through history.back()
+  // so it and a native back gesture both funnel into the same popstate handler
+  // below \u2014 avoids popping the in-app stack twice. Falls back to popping
+  // directly if pushState never succeeded (e.g. a restrictive embed context).
+  if (S.pushedHistoryCount > 0) {
+    try { history.back(); return; } catch (e) {}
+  }
+  applyBack();
+}
+window.addEventListener('popstate', function () {
+  if (S.pushedHistoryCount > 0) S.pushedHistoryCount--;
+  applyBack();
+});
+
+// Optimistic local increment + fire-and-forget Firestore increment for the
+// vendor analytics counters (profile/offer/portfolio views, IG clicks).
+// FieldValue.increment is used server-side so concurrent visitors never
+// clobber each other's count.
+function bumpProviderStat(providerId, field) {
+  const provider = providerById(providerId);
+  if (!provider) return;
+  provider[field] = (provider[field] || 0) + 1;
+  db.collection('providers').doc(providerId).update({ [field]: firebase.firestore.FieldValue.increment(1) })
+    .catch(function (e) { console.error('bumpProviderStat(' + field + ') failed:', e); });
+}
+
+// Real-time, not a one-time fetch: a customer joining the waitlist while
+// the vendor is already sitting on their dashboard needs to show up
+// immediately \u2014 they're a walk-in waiting right now, not someone who can
+// wait for the vendor's next page reload. onSnapshot keeps S.data.waitlist
+// in sync automatically for as long as the vendor is logged in.
+let waitlistUnsubscribe = null;
+function loadWaitlistForProvider(uid) {
+  if (waitlistUnsubscribe) { waitlistUnsubscribe(); waitlistUnsubscribe = null; }
+  waitlistUnsubscribe = db.collection('waitlist').where('providerId', '==', uid).onSnapshot(function (snap) {
+    S.data.waitlist = snap.docs.map(docToObj);
+    render();
+  }, function (e) { console.error('loadWaitlistForProvider failed:', e); });
+}
+function stopWaitlistListener() {
+  if (waitlistUnsubscribe) { waitlistUnsubscribe(); waitlistUnsubscribe = null; }
+}
+
+function handleAction(action, target) {
+  const value = target.getAttribute('data-value');
+  if (action === 'go-home') { goTo('home'); return; }
+  if (action === 'go-back') { goBack(); return; }
+  if (action === 'go-results') { goTo('results'); return; }
+  if (action === 'go-admin') { goTo('admin'); return; }
+  if (action === 'admin-close') { S.view = 'home'; S.adminUnlocked = false; S.adminCode = ''; render(); return; }
+  if (action === 'go-glamrme') { if (!GLAMR_ME_ENABLED) return; goTo('glamrme'); S.glamr.step = 'occasion'; logEvent('glamr_me_started'); return; }
+  if (action === 'go-glamrme-edit') { if (!GLAMR_ME_ENABLED) return; S.glamr.step = 'occasion'; render(); return; }
+  if (action === 'go-deals') { logEvent('deals_viewed'); goTo('deals', { dealsCategory: null }); return; }
+  if (action === 'set-deals-category') { S.dealsCategory = value || null; render(); return; }
+  if (action === 'set-deals-home-category') { S.dealsHomeCategory = value || ''; render(); return; }
+  if (action === 'go-category') { goTo('category', { activeCategory: value }); return; }
+  if (action === 'go-directory') { goTo('directory'); return; }
+  if (action === 'search-category') {
+    markSearchStarted();
+    S.search.service = value;
+    logEvent('search_completed');
+    goTo('results');
+    return;
+  }
+  if (action === 'go-vendor') {
+    bumpProviderStat(value, 'profileViews');
+    goTo('vendorProfile', { activeVendorId: value });
+    return;
+  }
+  if (action === 'go-review') {
+    goTo('review', {
+      activeVendorId: value,
+      reviewForm: { rating: 0, name: '', comment: '' },
+      reviewSubmitted: false,
+    });
+    return;
+  }
+  if (action === 'set-review-rating') { S.reviewForm.rating = Number(value); render(); return; }
+  if (action === 'submit-review') {
+    const f = S.reviewForm;
+    if (!(f.rating > 0)) return;
+    const review = {
+      providerId: S.activeVendorId, rating: f.rating,
+      name: f.name.trim(), comment: f.comment.trim(), createdAt: Date.now(),
+    };
+    db.collection('reviews').add(review).then(function (ref) {
+      S.data.reviews.push(Object.assign({ id: ref.id }, review));
+      render();
+    }).catch(function (e) { console.error('submit-review failed:', e); flash('Could not submit review \u2014 try again.'); render(); });
+    logEvent('review_submitted');
+    S.reviewSubmitted = true;
+    S.navHistory = []; // completed flow — "Back to Profile" below is a fresh destination, not a history pop
+    render(); return;
+  }
+  if (action === 'copy-review-link') {
+    logEvent('review_link_copied');
+    const link = value;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link).then(function () { flash('Review link copied.'); }).catch(function () { flash('Copy failed \u2014 select and copy the link manually.'); });
+    } else {
+      flash('Select and copy the link manually.');
+    }
+    return;
+  }
+  if (action === 'copy-waitlist-link' || action === 'copy-confirm-link') {
+    const link = value;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link).then(function () { flash('Link copied.'); }).catch(function () { flash('Copy failed \u2014 select and copy the link manually.'); });
+    } else {
+      flash('Select and copy the link manually.');
+    }
+    return;
+  }
+  if (action === 'featured-instagram-click') {
+    bumpProviderStat(value, 'instagramClicks');
+    logEvent('featured_instagram_clicked');
+    return; // real navigation to Instagram is handled by the anchor's own href/target
+  }
+  if (action === 'toggle-dash-theme') {
+    S.dashDark = !S.dashDark;
+    try { localStorage.setItem('glamr-dash-dark', S.dashDark ? '1' : '0'); } catch (e) {}
+    render(); return;
+  }
+  if (action === 'set-dash-accent') {
+    S.dashAccent = value;
+    try { localStorage.setItem('glamr-dash-accent', value); } catch (e) {}
+    render(); return;
+  }
+  if (action === 'toggle-featured') {
+    const provider = providerById(S.session);
+    if (!provider) return;
+    const newFeatured = !provider.featured;
+    db.collection('providers').doc(provider.id).update({ featured: newFeatured }).then(function () {
+      provider.featured = newFeatured; render();
+    }).catch(function (e) { console.error('toggle-featured failed:', e); flash('Could not update \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'set-dash-preferred-booking') {
+    if (!S.businessForm) return;
+    S.businessForm.preferredBooking = value;
+    render(); return;
+  }
+  if (action === 'save-business-info') {
+    const provider = providerById(S.session);
+    const f = S.businessForm;
+    if (!provider || !f) return;
+    const update = { instagram: f.instagram.trim(), website: f.website.trim(), preferredBooking: f.preferredBooking };
+    db.collection('providers').doc(provider.id).update(update).then(function () {
+      Object.assign(provider, update);
+      flash('Business info updated.');
+      render();
+    }).catch(function (e) { console.error('save-business-info failed:', e); flash('Could not save \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'join-waitlist') {
+    const f = S.waitlistJoinForm;
+    if (!(f.name.trim() && f.phone.trim())) return;
+    const entry = {
+      providerId: S.activeVendorId, name: f.name.trim(), phone: f.phone.trim(),
+      notes: f.notes.trim(), status: 'waiting', createdAt: Date.now(),
+    };
+    db.collection('waitlist').add(entry).then(function () {
+      S.waitlistJoinSubmitted = true; render();
+    }).catch(function (e) { console.error('join-waitlist failed:', e); flash('Could not join the waitlist \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'waitlist-mark-seated' || action === 'waitlist-remove') {
+    // Both just take the entry off the active waitlist — "seated" keeps a
+    // status history via update, "remove" is a delete for spam/no-shows.
+    if (action === 'waitlist-mark-seated') {
+      db.collection('waitlist').doc(value).update({ status: 'seated' }).then(function () {
+        const w = S.data.waitlist.find(function (x) { return x.id === value; });
+        if (w) w.status = 'seated';
+        render();
+      }).catch(function (e) { console.error('waitlist-mark-seated failed:', e); flash('Could not update \u2014 try again.'); render(); });
+    } else {
+      db.collection('waitlist').doc(value).delete().then(function () {
+        S.data.waitlist = S.data.waitlist.filter(function (x) { return x.id !== value; });
+        render();
+      }).catch(function (e) { console.error('waitlist-remove failed:', e); flash('Could not remove \u2014 try again.'); render(); });
+    }
+    return;
+  }
+  if (action === 'go-provider-entry') { goTo(S.session ? 'providerDashboard' : 'providerLogin'); return; }
+  if (action === 'go-provider-dashboard') { S.navHistory = []; goTo('providerDashboard'); return; }
+  if (action === 'go-provider-signup') { goTo('providerSignup'); return; }
+  if (action === 'go-provider-login') { goTo('providerLogin'); return; }
+
+  if (action === 'set-service') {
+    markSearchStarted();
+    S.search.service = (S.search.service === value) ? null : value;
+    render(); return;
+  }
+  if (action === 'set-when') {
+    markSearchStarted();
+    S.search.when = (S.search.when === value) ? null : value;
+    render(); return;
+  }
+  if (action === 'do-search') {
+    markSearchStarted();
+    logEvent('search_completed');
+    goTo('results');
+    return;
+  }
+  if (action === 'view-opening') {
+    const o = S.data.openings.find(function (x) { return x.id === value; });
+    if (o) bumpProviderStat(o.providerId, 'offerViews');
+    logEvent('appointment_viewed');
+    goTo('request', { activeOpeningId: value });
+    return;
+  }
+  if (action === 'book-instagram-click') {
+    const o = S.data.openings.find(function (x) { return x.id === value; });
+    if (o) {
+      bumpProviderStat(o.providerId, 'instagramClicks');
+      // Per-opening click count (separate from the vendor-level total above).
+      // This is what a Cloud Function watches to know WHICH specific opening
+      // to text the vendor about \u2014 the vendor-level stat alone can't tell
+      // you that.
+      o.clicks = (o.clicks || 0) + 1;
+      db.collection('openings').doc(o.id).update({ clicks: firebase.firestore.FieldValue.increment(1) })
+        .catch(function (e) { console.error('opening click bump failed:', e); });
+    }
+    logEvent('instagram_book_clicked');
+    return;
+  }
+  if (action === 'book-website-click') {
+    const o = S.data.openings.find(function (x) { return x.id === value; });
+    if (o) {
+      bumpProviderStat(o.providerId, 'websiteClicks');
+      o.clicks = (o.clicks || 0) + 1;
+      db.collection('openings').doc(o.id).update({ clicks: firebase.firestore.FieldValue.increment(1) })
+        .catch(function (e) { console.error('opening click bump failed:', e); });
+    }
+    logEvent('website_book_clicked');
+    return;
+  }
+  // Jump straight to the confirm screen from inside the dashboard — no
+  // copy/paste needed since the vendor's already signed in and looking
+  // right at this opening. goTo (not a raw view swap) so "Back" returns
+  // them to the dashboard instead of dead-ending.
+  if (action === 'go-confirm-booking') {
+    goTo('confirmBooking', { activeOpeningId: value });
+    return;
+  }
+  // One-tap "Mark as booked" from the no-login confirm link. No auth check
+  // on purpose \u2014 the whole point is a vendor can do this straight from a
+  // text message without signing in. Re-checks status so a stale/duplicate
+  // tap (e.g. link opened twice) can't double-count or clobber a newer state.
+  if (action === 'confirm-booking') {
+    const o = S.data.openings.find(function (x) { return x.id === value; });
+    if (!o || o.status !== 'active') { render(); return; }
+    db.collection('openings').doc(value).update({ status: 'booked' }).then(function () {
+      o.status = 'booked';
+      bumpProviderStat(o.providerId, 'confirmedBookings');
+      logEvent('booking_confirmed');
+      render();
+    }).catch(function (e) { console.error('confirm-booking failed:', e); flash('Could not update \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'zoom-photo') {
+    const provider = providerById(value);
+    bumpProviderStat(value, 'portfolioViews');
+    S.lightbox = { url: target.getAttribute('data-url'), alt: provider ? provider.businessName + ' portfolio photo' : 'Portfolio photo' };
+    render(); return;
+  }
+  if (action === 'close-lightbox') { S.lightbox = null; render(); return; }
+
+  if (action === 'set-occasion') { if (!GLAMR_ME_ENABLED) return; S.glamr.occasion = value; render(); return; }
+  if (action === 'build-glamr-plan') {
+    if (!GLAMR_ME_ENABLED) return;
+    if (!S.glamr.occasion) return;
+    buildGlamrPlan();
+    S.glamr.step = 'plan';
+    render(); return;
+  }
+
+  if (action === 'toggle-signup-service') {
+    const f = S.signupForm;
+    const idx = f.services.indexOf(value);
+    if (idx === -1) f.services.push(value); else f.services.splice(idx, 1);
+    render(); return;
+  }
+  if (action === 'set-preferred-booking') {
+    S.signupForm.preferredBooking = value;
+    render(); return;
+  }
+  if (action === 'remove-signup-photo') {
+    S.signupForm.portfolio.splice(Number(value), 1);
+    S.signupForm.portfolioBlobs.splice(Number(value), 1);
+    render(); return;
+  }
+  if (action === 'remove-dash-photo') {
+    const provider = providerById(S.session);
+    if (!provider) return;
+    const removedURL = provider.portfolio[Number(value)];
+    const newPortfolio = provider.portfolio.slice();
+    newPortfolio.splice(Number(value), 1);
+    db.collection('providers').doc(provider.id).update({ portfolio: newPortfolio }).then(function () {
+      provider.portfolio = newPortfolio; render();
+      deleteProviderImageByURL(removedURL);
+    }).catch(function (e) { console.error('remove-dash-photo failed:', e); flash('Could not remove photo \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'submit-signup') {
+    const f = S.signupForm;
+    if (!(f.businessName && f.email && f.password && f.city && f.services.length)) return;
+    f.error = '';
+    let createdUid = null;
+    auth.createUserWithEmailAndPassword(f.email.trim(), f.password).then(function (cred) {
+      createdUid = cred.user.uid;
+      // Photos were only held as local previews/blobs during signup (no uid
+      // existed yet to upload under) — upload them for real now.
+      const profilePhotoUpload = f.profilePhotoBlob
+        ? uploadProviderImage(createdUid, f.profilePhotoBlob, 'profile.jpg')
+        : Promise.resolve('');
+      const portfolioUploads = Promise.all(f.portfolioBlobs.map(function (blob, i) {
+        return uploadProviderImage(createdUid, blob, 'portfolio/' + Date.now() + '-' + i + '.jpg');
+      }));
+      return Promise.all([profilePhotoUpload, portfolioUploads]);
+    }).then(function (results) {
+      const profilePhotoURL = results[0], portfolioURLs = results[1];
+      const providerDoc = {
+        businessName: f.businessName, ownerName: f.ownerName, email: f.email.trim(),
+        phone: f.phone, city: f.city, zip: f.zip, services: f.services.slice(),
+        instagram: f.instagram, website: f.website, preferredBooking: f.preferredBooking || 'instagram', profilePhoto: profilePhotoURL, description: f.description, portfolio: portfolioURLs,
+        profileViews: 0, offerViews: 0, portfolioViews: 0, instagramClicks: 0, websiteClicks: 0, confirmedBookings: 0, featured: false,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(), deal: null, pro: false,
+      };
+      return db.collection('providers').doc(createdUid).set(providerDoc).then(function () {
+        const provider = Object.assign({ id: createdUid }, providerDoc, { createdAt: Date.now() });
+        S.data.providers.push(provider);
+        logEvent('provider_signup');
+        S.session = provider.id;
+        S.openingForm = freshOpeningForm(provider);
+        S.businessForm = freshBusinessForm(provider);
+        S.dealForm = null;
+        S.navHistory = [];
+        S.view = 'providerOnboarding';
+        flash('Welcome! Your profile is live.');
+        render();
+      });
+    }).catch(function (e) {
+      f.error = e.code === 'auth/email-already-in-use' ? 'That email is already registered.'
+        : e.code === 'auth/weak-password' ? 'Password should be at least 6 characters.'
+        : 'Could not create account \u2014 try again.';
+      render();
+    });
+    return;
+  }
+  if (action === 'submit-login') {
+    const f = S.loginForm;
+    auth.signInWithEmailAndPassword(f.email.trim(), f.password).then(function (cred) {
+      f.error = '';
+      const p = providerById(cred.user.uid);
+      S.session = cred.user.uid;
+      S.openingForm = freshOpeningForm(p);
+      S.businessForm = freshBusinessForm(p);
+      S.dealForm = null;
+      S.navHistory = [];
+      S.view = 'providerDashboard';
+      loadWaitlistForProvider(cred.user.uid);
+      render();
+    }).catch(function (e) {
+      f.error = 'No match \u2014 check email & password.';
+      render();
+    });
+    return;
+  }
+  if (action === 'provider-logout') {
+    auth.signOut();
+    stopWaitlistListener();
+    S.session = null; S.openingForm = null; S.businessForm = null; S.dealForm = null; S.navHistory = []; S.view = 'home'; render(); return;
+  }
+
+  if (action === 'post-opening') {
+    const f = S.openingForm;
+    if (!(f.service && f.date && f.time && f.price)) return;
+    const opening = {
+      providerId: S.session, status: 'active',
+      service: f.service, date: f.date, time: f.time, price: Number(f.price),
+      duration: f.duration, location: f.location, clicks: 0, smsSent: false,
+    };
+    db.collection('openings').add(opening).then(function (ref) {
+      const saved = Object.assign({ id: ref.id }, opening);
+      S.data.openings.push(saved);
+      logEvent('provider_opening_posted');
+      const provider = providerById(S.session);
+      S.openingForm = freshOpeningForm(provider);
+      S.lastPostedOpening = saved;
+      goTo('openingSuccess');
+    }).catch(function (e) { console.error('post-opening failed:', e); flash('Could not post opening \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'toggle-opening') {
+    const o = S.data.openings.find(function (x) { return x.id === value; });
+    if (!o) return;
+    const newStatus = o.status === 'active' ? 'unavailable' : 'active';
+    // Reactivating (from 'unavailable' or a mistaken 'booked') resets the
+    // click/notify state so a fresh round of clicks on this reopened slot
+    // can trigger the confirm text again \u2014 otherwise smsSent:true from the
+    // first go-round would silently block the vendor from ever being texted
+    // about this opening again.
+    const update = { status: newStatus };
+    if (newStatus === 'active') { update.clicks = 0; update.smsSent = false; }
+    db.collection('openings').doc(value).update(update).then(function () {
+      Object.assign(o, update); render();
+    }).catch(function (e) { console.error('toggle-opening failed:', e); flash('Could not update opening \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'delete-opening') {
+    db.collection('openings').doc(value).delete().then(function () {
+      S.data.openings = S.data.openings.filter(function (x) { return x.id !== value; });
+      render();
+    }).catch(function (e) { console.error('delete-opening failed:', e); flash('Could not delete opening \u2014 try again.'); render(); });
+    return;
+  }
+
+  if (action === 'add-deal-start') {
+    const provider = providerById(S.session);
+    S.dealForm = freshDealForm(provider, null);
+    render(); return;
+  }
+  if (action === 'edit-deal') {
+    const provider = providerById(S.session);
+    S.dealForm = freshDealForm(provider, provider.deal);
+    render(); return;
+  }
+  if (action === 'cancel-deal-form') { S.dealForm = null; render(); return; }
+  if (action === 'save-deal') {
+    const provider = providerById(S.session);
+    const f = S.dealForm;
+    if (!(f.title.trim() && f.service && f.originalPrice && f.dealPrice && f.expiresDate && f.expiresTime)) return;
+    const deal = {
+      id: f.id || uid(), title: f.title.trim(), service: f.service,
+      originalPrice: Number(f.originalPrice), dealPrice: Number(f.dealPrice),
+      discountPercent: f.discountPercent ? Number(f.discountPercent) : '',
+      description: f.description, expiresAt: f.expiresDate + 'T' + f.expiresTime,
+      scope: f.scope, specificDate: f.scope === 'specific' ? f.specificDate : '',
+      specificTime: f.scope === 'specific' ? f.specificTime : '',
+      image: f.image, createdAt: Date.now(),
+    };
+    db.collection('providers').doc(provider.id).update({ deal: deal }).then(function () {
+      provider.deal = deal;
+      logEvent('deal_posted');
+      S.lastPostedDeal = deal;
+      S.dealForm = null;
+      goTo('dealSuccess');
+    }).catch(function (e) { console.error('save-deal failed:', e); flash('Could not save deal \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'remove-deal') {
+    const provider = providerById(S.session);
+    db.collection('providers').doc(provider.id).update({ deal: null }).then(function () {
+      provider.deal = null; render();
+    }).catch(function (e) { console.error('remove-deal failed:', e); flash('Could not remove deal \u2014 try again.'); render(); });
+    return;
+  }
+  if (action === 'remove-deal-image') {
+    if (S.dealForm) {
+      const removedURL = S.dealForm.image;
+      S.dealForm.image = '';
+      deleteProviderImageByURL(removedURL);
+    }
+    render(); return;
+  }
+
+  if (action === 'admin-enter') {
+    if (S.adminCode === ADMIN_PASSCODE) { S.adminUnlocked = true; S.adminError = ''; }
+    else { S.adminError = 'Wrong passcode'; }
+    render(); return;
+  }
+  if (action === 'admin-delete') {
+    const kind = target.getAttribute('data-kind');
+    const id = target.getAttribute('data-value');
+    db.collection(kind).doc(id).delete().then(function () {
+      S.data[kind] = S.data[kind].filter(function (x) { return x.id !== id; });
+      render();
+    }).catch(function (e) { console.error('admin-delete failed:', e); flash('Could not delete \u2014 try again.'); render(); });
+    return;
+  }
+}
+
+function handleInput(el) {
+  const bind = el.getAttribute('data-bind');
+  if (bind) {
+    let val = el.value;
+    setPath(S, bind, val);
+    // Re-render so anything derived from this field — enabled/disabled submit
+    // buttons ("Post Opening", "Create Profile", etc.), sort order, conditional
+    // fields — stays in sync with the new value. Re-rendering wipes focus and
+    // cursor position by default, so capture and restore them around the call.
+    const selStart = (typeof el.selectionStart === 'number') ? el.selectionStart : null;
+    const selEnd = (typeof el.selectionEnd === 'number') ? el.selectionEnd : null;
+    render();
+    const restored = document.querySelector('[data-bind="' + bind + '"]');
+    if (restored) {
+      restored.focus();
+      if (selStart !== null && restored.setSelectionRange) {
+        try { restored.setSelectionRange(selStart, selEnd); } catch (e) { /* not a text input */ }
+      }
+    }
+    return;
+  }
+  const reqStatusId = el.getAttribute('data-bind-request-status');
+  if (reqStatusId) {
+    const r = S.data.requests.find(function (x) { return x.id === reqStatusId; });
+    if (r) { r.status = el.value; persist(); }
+    return;
+  }
+}
+
+document.getElementById('app').addEventListener('click', function (e) {
+  const t = e.target.closest('[data-action]');
+  if (!t) return;
+  handleAction(t.getAttribute('data-action'), t);
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && S.lightbox) { S.lightbox = null; render(); }
+});
+document.getElementById('app').addEventListener('input', function (e) {
+  if (e.target.matches('[data-bind]')) handleInput(e.target);
+});
+document.getElementById('app').addEventListener('change', function (e) {
+  if (e.target.matches('[data-bind]') || e.target.matches('[data-bind-request-status]')) { handleInput(e.target); return; }
+
+  // Profile photo / logo upload (signup form or vendor dashboard)
+  const profileTarget = e.target.getAttribute && e.target.getAttribute('data-file-profile');
+  if (profileTarget && e.target.files && e.target.files[0]) {
+    fileToCompressedDataURL(e.target.files[0], 480, 0.82, function (dataURL, blob) {
+      if (profileTarget === 'signup') {
+        // No uid yet (account doesn't exist until submit-signup) — hold the
+        // preview + blob locally, upload for real once the account is created.
+        S.signupForm.profilePhoto = dataURL;
+        S.signupForm.profilePhotoBlob = blob;
+        render();
+      } else if (profileTarget === 'dash') {
+        const provider = providerById(S.session);
+        if (!provider) return;
+        provider.profilePhoto = dataURL; render(); // optimistic local preview while it uploads
+        uploadProviderImage(provider.id, blob, 'profile.jpg').then(function (url) {
+          return db.collection('providers').doc(provider.id).update({ profilePhoto: url }).then(function () { return url; });
+        }).then(function (url) {
+          provider.profilePhoto = url; render(); flash('Profile photo updated.');
+        }).catch(function (e) { console.error('profile photo upload failed:', e); flash('Could not update photo \u2014 try again.'); render(); });
+      }
+    });
+    return;
+  }
+
+  // Deal image upload (add/edit deal form) — always inside the vendor
+  // dashboard, so S.session is always a known uid here.
+  const dealImageTarget = e.target.getAttribute && e.target.getAttribute('data-file-deal');
+  if (dealImageTarget && e.target.files && e.target.files[0]) {
+    fileToCompressedDataURL(e.target.files[0], 800, 0.8, function (dataURL, blob) {
+      if (!S.dealForm) return;
+      S.dealForm.image = dataURL; render(); // optimistic preview while it uploads
+      uploadProviderImage(S.session, blob, 'deal-' + Date.now() + '.jpg').then(function (url) {
+        if (S.dealForm) { S.dealForm.image = url; render(); }
+      }).catch(function (e) { console.error('deal image upload failed:', e); flash('Could not upload deal image \u2014 try again.'); render(); });
+    });
+    return;
+  }
+
+  // Portfolio photo upload (signup form or vendor dashboard) — supports multiple files at once
+  const portfolioTarget = e.target.getAttribute && e.target.getAttribute('data-file-portfolio');
+  if (portfolioTarget && e.target.files && e.target.files.length) {
+    const files = Array.prototype.slice.call(e.target.files);
+    if (portfolioTarget === 'signup') {
+      // No uid yet — keep previews + blobs locally, upload once the account exists.
+      let remaining = files.length;
+      files.forEach(function (file) {
+        fileToCompressedDataURL(file, 800, 0.78, function (dataURL, blob) {
+          S.signupForm.portfolio.push(dataURL);
+          S.signupForm.portfolioBlobs.push(blob);
+          remaining--;
+          if (remaining === 0) render();
+        });
+      });
+      return;
+    }
+    // dash — uid known, upload each photo to Storage, then commit the real
+    // download URLs to Firestore once every file has finished uploading.
+    const provider = providerById(S.session);
+    if (!provider) return;
+    let remaining = files.length;
+    files.forEach(function (file) {
+      fileToCompressedDataURL(file, 800, 0.78, function (dataURL, blob) {
+        uploadProviderImage(provider.id, blob, 'portfolio/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.jpg').then(function (url) {
+          provider.portfolio.push(url);
+        }).catch(function (e) {
+          console.error('portfolio photo upload failed:', e); flash('Could not upload a photo \u2014 try again.');
+        }).finally(function () {
+          remaining--;
+          if (remaining === 0) {
+            db.collection('providers').doc(provider.id).update({ portfolio: provider.portfolio })
+              .catch(function (e) { console.error('portfolio update failed:', e); flash('Could not save some photos \u2014 try again.'); });
+            render();
+          }
+        });
+      });
+    });
+    return;
+  }
+});
+
+/* ---------------------------- boot ---------------------------- */
+
+(async function boot() {
+  render();
+  S.data = await loadData();
+  S.openingForm = null;
+
+  // Deep link from a vendor's review QR code / shared link: ?review=<providerId>
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const reviewId = params.get('review');
+    if (reviewId && providerById(reviewId)) {
+      S.activeVendorId = reviewId;
+      S.view = 'review';
+    }
+    // Deep link from a vendor's waitlist QR/link: ?waitlist=<providerId>
+    const waitlistId = params.get('waitlist');
+    if (waitlistId && providerById(waitlistId)) {
+      S.activeVendorId = waitlistId;
+      S.view = 'waitlistJoin';
+    }
+    // Hidden admin entry point (not linked anywhere in the UI): ?admin=1
+    if (params.get('admin') === '1') {
+      S.view = 'admin';
+    }
+    // One-tap booking confirmation link, sent to a vendor (by hand for now,
+    // later automatically) after a customer clicks through to Instagram/their
+    // website: ?confirm=<openingId>. Deliberately no login required \u2014 the
+    // whole point is the vendor doesn't have to visit the dashboard.
+    const confirmId = params.get('confirm');
+    if (confirmId) {
+      S.activeOpeningId = confirmId;
+      S.view = 'confirmBooking';
+    }
+  } catch (e) { /* URLSearchParams unsupported or no location — ignore, app still works normally */ }
+
+  render();
+
+  // Firebase Auth persists login across page loads/tabs by default. On first
+  // load after boot, if a vendor is already signed in, restore their dashboard
+  // session instead of dropping them back to a logged-out view on refresh.
+  let firstAuthCheck = true;
+  auth.onAuthStateChanged(function (user) {
+    if (user && providerById(user.uid)) {
+      S.session = user.uid;
+      S.businessForm = freshBusinessForm(providerById(user.uid));
+      loadWaitlistForProvider(user.uid);
+      // Also exclude 'confirmBooking' here \u2014 a vendor who's still logged in
+      // from a previous session shouldn't get yanked off the one-tap confirm
+      // link straight to their dashboard on page load.
+      if (firstAuthCheck && S.view !== 'review' && S.view !== 'admin' && S.view !== 'confirmBooking') {
+        S.openingForm = freshOpeningForm(providerById(user.uid));
+        S.view = 'providerDashboard';
+      }
+    } else if (!user) {
+      S.session = null;
+      stopWaitlistListener();
+    }
+    firstAuthCheck = false;
+    render();
+  });
+})();
+</script>
+</body>
+</html>
